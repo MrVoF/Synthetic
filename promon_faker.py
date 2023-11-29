@@ -9,9 +9,10 @@ class Fake:
         self.faker = Faker(locale)
 
     def __str__(self):
-        return self.locale
+        return "locale: " + self.locale + " count: " + str(self.count)
 
     def id(self):
+        '''Генерация случайных идентификаторов'''
         import uuid
         values = []
         for _ in range(self.count):
@@ -19,24 +20,28 @@ class Fake:
         return values
 
     def strim(self):
+        '''Генерация случайных строк'''
         values = []
         for _ in range(self.count):
             values.append(self.faker.company())
         return values
 
     def num_int(self):
+        '''Генерация случайных целых чисел'''
         values = []
         for _ in range(self.count):
             values.append(self.faker.pyint())
         return values
 
     def num_float(self):
+        '''Генерация случайных чисел с плавающей запятой'''
         values = []
         for _ in range(self.count):
             values.append(self.faker.pyfloat())
         return values
 
     def num_bool(self):
+        '''Генерация случайных булевых значений'''
         values = []
         for _ in range(self.count):
             values.append(self.faker.pybool())

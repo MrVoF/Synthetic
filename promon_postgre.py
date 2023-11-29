@@ -1,5 +1,6 @@
 from loguru import logger
 import psycopg2
+from psycopg2.extras import execute_values
 
 
 class PSQLConnect:
@@ -46,6 +47,64 @@ class PSQLConnect:
             self.conn = None
             logger.info('Connection closed successfully.')
 
+    def check_table_exists(self, table_name):
+        """Check if a table exists."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = '{table_name}');")
+        result = cursor.fetchone()
+        cursor.close()
+        return result
+
+    def create_table(self, table_name, columns):
+        """Create a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});")
+        self.conn.commit()
+        cursor.close()
+
+    def drop_table(self, table_name):
+        """Drop a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+        self.conn.commit()
+        cursor.close()
+
+    def truncate_table(self, table_name):
+        """Truncate a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"TRUNCATE TABLE {table_name};")
+        self.conn.commit()
+        cursor.close()
+
+    def read_table(self, table_name):
+        """Read a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"SELECT * FROM {table_name};")
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def insert_table(self, table_name, columns):
+        """Insert a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ();")
+        self.conn.commit()
+        cursor.close()
+
+    def insert_table_with_params(self, table_name, columns, params):
+        """Insert a table with parameters."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        execute_values(cursor, f"INSERT INTO {table_name} ({columns}) VALUES %s", params)
+        self.conn.commit()
+        cursor.close()
+
     def execute_query(self, query):
         """Execute a query."""
         self.open_connection()
@@ -78,44 +137,4 @@ class PSQLConnect:
         self.conn.commit()
         cursor.close()
 
-    def executemany_write_query_with_params(self, query, params):
-        """Execute many a write query with parameters."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.executemany(query, params)
-        self.conn.commit()
-        cursor.close()
 
-    def execute_query_with_params(self, query, params):
-        """Execute a query with parameters."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        cursor.close()
-
-    def execute_query_with_params_and_fetchone(self, query, params):
-        """Execute a query with parameters and fetch one."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        result = cursor.fetchone()
-        cursor.close()
-        return result
-
-    def execute_query_with_params_and_fetchall(self, query, params):
-        """Execute a query with parameters and fetch all."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
-
-    def execute_query_with_params_and_fetchmany(self, query, params):
-        """Execute a query with parameters and fetch many."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        result = cursor.fetchmany()
-        cursor.close()
-        return result

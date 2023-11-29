@@ -1,22 +1,22 @@
 from promon_postgre import PSQLConnect
 from promon_faker import Fake
 
-fake = Fake(locale='ru_RU', count=10)
+
+fake = Fake(locale='ru_RU', count=100)
 
 ids = fake.id()
 strims = fake.strim()
+val = fake.num_int()
 
-values = list(zip(ids, strims))
-
-query = """INSERT INTO test.dict_strims (strim_id, strim) VALUES (%s, %s)"""
+values = list(zip(ids, strims, val))
 
 psql = PSQLConnect(host='localhost', username='mrvof', password='Dk@lbvbh', port='5432', dbname='testdb')
 psql.connect()
 
-psql.executemany_write_query_with_params(query, values)
+psql.drop_table('test.dict_strims')
+psql.create_table('test.dict_strims', 'strim_id VARCHAR(255), strim VARCHAR(255), val INT')
+psql.insert_table_with_params('test.dict_strims', 'strim_id, strim, val', values)
 
-result_query = psql.execute_read_query("SELECT * FROM test.dict_strims;")
-
-print(result_query)
+result_query = psql.read_table('test.dict_strims')
 
 del psql
