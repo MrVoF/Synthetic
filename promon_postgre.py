@@ -47,20 +47,77 @@ class PSQLConnect:
             self.conn = None
             logger.info('Connection closed successfully.')
 
-    def check_table_exists(self, table_name):
-        """Check if a table exists."""
+    def create_database(self, dbname):
+        """Create a database if it doesn't exist."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = '{table_name}');")
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {dbname};")
+        self.conn.commit()
+        cursor.close()
+
+    def check_database_exists(self, dbname):
+        """Check if a database exists."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE datname = '{dbname}');")
         result = cursor.fetchone()
         cursor.close()
         return result
+
+    def drop_database(self, dbname):
+        """Drop a database if it exists."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"DROP DATABASE IF EXISTS {dbname};")
+        self.conn.commit()
+        cursor.close()
+
+    def create_schema(self, schema_name):
+        """Create a schema if it doesn't exist."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
+        self.conn.commit()
+        cursor.close()
+
+    def check_schema_exists(self, schema_name):
+        """Check if a schema exists."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"SELECT EXISTS (SELECT FROM information_schema.schemata WHERE schema_name = '{schema_name}');")
+        result = cursor.fetchone()
+        cursor.close()
+        return result
+
+    def drop_schema(self, schema_name):
+        """Drop a schema if it exists."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE;")
+        self.conn.commit()
+        cursor.close()
 
     def create_table(self, table_name, columns):
         """Create a table."""
         self.open_connection()
         cursor = self.conn.cursor()
         cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});")
+        self.conn.commit()
+        cursor.close()
+
+    def create_table_with_params(self, table_name, columns, params):
+        """Create a table with parameters."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        execute_values(cursor, f"CREATE TABLE IF NOT EXISTS {table_name} ({columns}) VALUES %s", params)
+        self.conn.commit()
+        cursor.close()
+
+    def insert_table(self, table_name, columns, params):
+        """Insert a table with parameters."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        execute_values(cursor, f"INSERT INTO {table_name} ({columns}) VALUES %s", params)
         self.conn.commit()
         cursor.close()
 
@@ -88,22 +145,6 @@ class PSQLConnect:
         result = cursor.fetchall()
         cursor.close()
         return result
-
-    def insert_table(self, table_name, columns):
-        """Insert a table."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ();")
-        self.conn.commit()
-        cursor.close()
-
-    def insert_table_with_params(self, table_name, columns, params):
-        """Insert a table with parameters."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        execute_values(cursor, f"INSERT INTO {table_name} ({columns}) VALUES %s", params)
-        self.conn.commit()
-        cursor.close()
 
     def execute_query(self, query):
         """Execute a query."""
@@ -136,5 +177,3 @@ class PSQLConnect:
         cursor.execute(query, params)
         self.conn.commit()
         cursor.close()
-
-

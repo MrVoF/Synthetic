@@ -2,7 +2,7 @@ from promon_postgre import PSQLConnect
 from promon_faker import Fake
 
 
-fake = Fake(locale='ru_RU', count=100)
+fake = Fake(locale='ru_RU', count=1000)
 
 ids = fake.id()
 strims = fake.strim()
@@ -16,7 +16,5 @@ psql.connect()
 psql.drop_table('test.dict_strims')
 psql.create_table('test.dict_strims', 'strim_id VARCHAR(255), strim VARCHAR(255), val INT')
 psql.insert_table_with_params('test.dict_strims', 'strim_id, strim, val', values)
-
-result_query = psql.read_table('test.dict_strims')
 
 del psql
