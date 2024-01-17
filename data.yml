@@ -1,0 +1,20 @@
+datacount: 100
+
+database: testdb
+
+schema: test
+
+tables:
+    - name: dict_teams
+      columns:
+        - name: team_id
+          type: VARCHAR(36)
+        - name: team
+          type: VARCHAR(255)
+
+    - name: dict_strims
+      columns:
+        - name: strim_id
+          type: VARCHAR(36)
+        - name: strim
+          type: VARCHAR(255)

@@ -20,10 +20,17 @@ class Fake:
         return values
 
     def strim(self):
-        '''Генерация случайных строк'''
+        '''Генерация случайных названий стримов'''
         values = []
         for _ in range(self.count):
             values.append(self.faker.company())
+        return values
+
+    def team(self):
+        '''Генерация случайных названий команд'''
+        values = []
+        for _ in range(self.count):
+            values.append(self.faker.bs())
         return values
 
     def num_int(self):
