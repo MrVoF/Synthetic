@@ -2,33 +2,34 @@ from promon_postgre import PSQLConnect
 from promon_faker import Fake
 from promon_yaml import Yaml
 
+host = '192.168.56.103'
+dbname = 'testdb'
+username = 'mrvof'
+password = 'Dk@lbvbh'
 
 yaml = Yaml(file_name='data.yml')
 
 if yaml.get_data()['database']:
-    psql = PSQLConnect()
+    psql = PSQLConnect(host=host, dbname=dbname, username=username, password=password)
     psql.open_connection()
     psql.drop_database(yaml.get_data()['database'])
     psql.create_database(yaml.get_data()['database'])
     psql.close_connection()
 
 if yaml.get_data()['schema']:
-    psql = PSQLConnect()
+    psql = PSQLConnect(host=host, dbname=dbname, username=username, password=password)
     psql.open_connection()
     psql.drop_schema(yaml.get_data()['schema'])
     psql.create_schema(yaml.get_data()['schema'])
     psql.close_connection()
 
 if yaml.get_data()['tables']:
-    psql = PSQLConnect()
+    psql = PSQLConnect(host=host, dbname=dbname, username=username, password=password)
     psql.open_connection()
     for table in yaml.get_data()['tables']:
         psql.drop_table(table['name'])
         psql.create_table(table['name'], table['columns'])
     psql.close_connection()
-
-
-
 
 if yaml.get_data()['datacount']:
     fake = Fake(locale='ru_RU', count=yaml.get_data()['datacount'])

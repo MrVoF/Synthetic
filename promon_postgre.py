@@ -6,7 +6,7 @@ from psycopg2.extras import execute_values
 class PSQLConnect:
     """PostgreSQL Database class."""
 
-    def __init__(self, host='localhost', username='postgres', password='postgres', port='5432', dbname='postgres'):
+    def __init__(self, host='localhost', port='5432', dbname='postgres', username='postgres', password='postgres'):
         self.conn = None
         self.host = host
         self.username = username
