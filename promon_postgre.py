@@ -6,16 +6,17 @@ from psycopg2.extras import execute_values
 class PSQLConnect:
     """PostgreSQL Database class."""
 
-    def __init__(self, host='localhost', port='5432', dbname='postgres', username='postgres', password='postgres'):
+    def __init__(self, host='localhost', port='5432', dbname='postgres', schema='public', username='postgres', password='postgres'):
         self.conn = None
         self.host = host
-        self.username = username
-        self.password = password
         self.port = port
         self.dbname = dbname
+        self.schema = schema
+        self.username = username
+        self.password = password
 
     def __str__(self):
-        return f'{self.host} {self.username} {self.password} {self.port} {self.dbname}'
+        return f'{self.host} {self.port} {self.dbname} {self.username} {self.password}'
 
     def __del__(self):
         self.close_connection()
@@ -26,10 +27,11 @@ class PSQLConnect:
             try:
                 self.conn = psycopg2.connect(
                     host=self.host,
+                    port=self.port,
+                    dbname=self.dbname,
                     user=self.username,
                     password=self.password,
-                    port=self.port,
-                    dbname=self.dbname
+                    options=f"-c search_path={self.schema}"
                 )
             except psycopg2.DatabaseError as e:
                 logger.error(e)
@@ -59,7 +61,7 @@ class PSQLConnect:
         """Check if a database exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE datname = '{dbname}');")
+        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE dbname = '{dbname}');")
         result = cursor.fetchone()
         cursor.close()
         return result
@@ -99,9 +101,13 @@ class PSQLConnect:
 
     def create_table(self, table_name, columns):
         """Create a table."""
+        rows = ''
+        for column in columns:
+            rows += column['name'] + ' ' + column['type'] + ', '
+
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});")
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({rows[:-2]});")
         self.conn.commit()
         cursor.close()
 

@@ -1,7 +1,9 @@
 datacount: 100
 
+host: 192.168.56.103
+username: mrvof
+password: Dk@lbvbh
 database: testdb
-
 schema: test
 
 tables:
