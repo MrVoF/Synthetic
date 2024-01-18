@@ -50,29 +50,31 @@ class PSQLConnect:
             self.conn = None
             logger.info('Connection closed successfully.')
 
-    def create_database(self, dbname):
-        """Create a database if it doesn't exist."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {dbname};")
-        self.conn.commit()
-        cursor.close()
-
     def check_database_exists(self, dbname):
         """Check if a database exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE dbname = '{dbname}');")
+        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE datname = '{dbname}');")
         result = cursor.fetchone()
         cursor.close()
         return result
+
+    def create_database(self, dbname):
+        """Create a database if it doesn't exist."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        if not self.check_database_exists(dbname):
+            cursor.execute(f"CREATE DATABASE {dbname};")
+            self.conn.commit()
+        cursor.close()
 
     def drop_database(self, dbname):
         """Drop a database if it exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"DROP DATABASE IF EXISTS {dbname};")
-        self.conn.commit()
+        if not self.check_database_exists(dbname):
+            cursor.execute(f"DROP DATABASE IF EXISTS {dbname};")
+            self.conn.commit()
         cursor.close()
 
     def create_schema(self, schema_name):

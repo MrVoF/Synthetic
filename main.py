@@ -9,12 +9,12 @@ schema = yaml.get_data()['schema']
 username = yaml.get_data()['username']
 password = yaml.get_data()['password']
 
-# if yaml.get_data()['database']:
-#     psql = PSQLConnect(host=host, dbname=dbname, schema=schema, username=username, password=password)
-#     psql.open_connection()
-#     # psql.drop_database(dbname)
-#     psql.create_database(dbname)
-#     psql.close_connection()
+if yaml.get_data()['database']:
+    psql = PSQLConnect(host=host, dbname=dbname, schema=schema, username=username, password=password)
+    psql.open_connection()
+    # psql.drop_database(dbname) # Раскомментировать если нужно пересоздать базу
+    psql.create_database(dbname)
+    psql.close_connection()
 
 if yaml.get_data()['schema']:
     psql = PSQLConnect(host=host, dbname=dbname, schema=schema, username=username, password=password)
