@@ -19,23 +19,23 @@ database: testdb
 schema: test
 
 tables:
-    - name: dict_teams
-      columns:
-        - name: team_id
-          type: UUID
-          stype: UUID
-        - name: team
-          type: VARCHAR(255)
-          stype: TEAM
-
-    - name: dict_strims
-      columns:
-        - name: strim_id
-          type: UUID
-          stype: UUID
-        - name: strim
-          type: VARCHAR(255)
-          stype: STRIM
+#    - name: dict_teams
+#      columns:
+#        - name: team_id
+#          type: UUID
+#          stype: UUID
+#        - name: team
+#          type: VARCHAR(255)
+#          stype: TEAM
+#
+#    - name: dict_strims
+#      columns:
+#        - name: strim_id
+#          type: UUID
+#          stype: UUID
+#        - name: strim
+#          type: VARCHAR(255)
+#          stype: STRIM
 
     - name: test_table
       columns:
@@ -48,9 +48,24 @@ tables:
         - name: team
           type: VARCHAR(255)
           stype: TEAM
+        - name: fio
+          type: VARCHAR(255)
+          stype: NAME
         - name: value
           type: INT
           stype: INT
         - name: indicator
           type: bool
           stype: BOOLEAN
+        - name: percent
+          type: FLOAT
+          stype: PERCENT
+        - name: date
+          type: DATE
+          stype: DATE
+        - name: datetime
+          type: TIMESTAMP
+          stype: DATETIME
+        - name: numeric
+          type: NUMERIC
+          stype: NUMERIC
