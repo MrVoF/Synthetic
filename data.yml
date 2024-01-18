@@ -1,4 +1,5 @@
-datacount: 100
+
+datacount: 100 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
 
 host: 192.168.56.103
 username: mrvof
@@ -10,13 +11,17 @@ tables:
     - name: dict_teams
       columns:
         - name: team_id
-          type: VARCHAR(36)
+          type: UUID
+          stype: UUID
         - name: team
           type: VARCHAR(255)
+          stype: TEAM
 
     - name: dict_strims
       columns:
         - name: strim_id
-          type: VARCHAR(36)
+          type: UUID
+          stype: UUID
         - name: strim
           type: VARCHAR(255)
+          stype: STRIM

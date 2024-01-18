@@ -3,53 +3,64 @@ from faker import Faker
 
 class Fake:
 
-    def __init__(self, locale='ru_RU', count=10):
+    def __init__(self, locale='ru_RU'):
         self.locale = locale
-        self.count = count
         self.faker = Faker(locale)
 
-    def __str__(self):
-        return "locale: " + self.locale + " count: " + str(self.count)
+    def get_data(self, stype='TEXT'):
+        stype = stype.upper()
+        if stype == 'UUID': return self.uuid()
+        if stype == 'TEXT': return self.text()
+        if stype == 'STRIM': return self.strim()
+        if stype == 'TEAM': return self.team()
+        if stype == 'INT': return self.int()
+        if stype == 'FLOAT': return self.float()
+        if stype == 'BOOLEAN': return self.bool()
+        if stype == 'DATE': return self.date()
+        if stype == 'TIMESTAMP': return self.timestamp()
+        if stype == 'NUMERIC': return self.numeric()
+        return ''
 
-    def id(self):
+    def __str__(self):
+        return "locale: " + self.locale
+
+    def uuid(self):
         '''Генерация случайных идентификаторов'''
         import uuid
-        values = []
-        for _ in range(self.count):
-            values.append(str(uuid.uuid4()))
-        return values
+        return "'" + str(uuid.uuid4()) + "'"
+
+    def text(self):
+        '''Генерация случайного текста'''
+        return "'" + self.faker.text() + "'"
 
     def strim(self):
         '''Генерация случайных названий стримов'''
-        values = []
-        for _ in range(self.count):
-            values.append(self.faker.company())
-        return values
+        return "'" + self.faker.company() + "'"
 
     def team(self):
         '''Генерация случайных названий команд'''
-        values = []
-        for _ in range(self.count):
-            values.append(self.faker.bs())
-        return values
+        return "'" + self.faker.bs() + "'"
 
-    def num_int(self):
+    def int(self):
         '''Генерация случайных целых чисел'''
-        values = []
-        for _ in range(self.count):
-            values.append(self.faker.pyint())
-        return values
+        return self.faker.pyint()
 
-    def num_float(self):
+    def float(self):
         '''Генерация случайных чисел с плавающей запятой'''
-        values = []
-        for _ in range(self.count):
-            values.append(self.faker.pyfloat())
-        return values
+        return self.faker.pyfloat()
 
-    def num_bool(self):
+    def numeric(self):
+        '''Генерация случайных чисел с плавающей запятой'''
+        return self.faker.pydecimal()
+
+    def bool(self):
         '''Генерация случайных булевых значений'''
-        values = []
-        for _ in range(self.count):
-            values.append(self.faker.pybool())
-        return values
+        return self.faker.pybool()
+
+    def date(self):
+        '''Генерация случайных дат'''
+        return self.faker.date()
+
+    def timestamp(self):
+        '''Генерация случайных дат с временем'''
+        return self.faker.date_time()

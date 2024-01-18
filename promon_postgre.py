@@ -6,7 +6,8 @@ from psycopg2.extras import execute_values
 class PSQLConnect:
     """PostgreSQL Database class."""
 
-    def __init__(self, host='localhost', port='5432', dbname='postgres', schema='public', username='postgres', password='postgres'):
+    def __init__(self, host='localhost', port='5432', dbname='postgres', schema='public', username='postgres',
+                 password='postgres'):
         self.conn = None
         self.host = host
         self.port = port
@@ -119,7 +120,15 @@ class PSQLConnect:
         self.conn.commit()
         cursor.close()
 
-    def insert_table(self, table_name, columns, params):
+    def insert_table(self, table_name, columns, values):
+        """Insert a table."""
+        self.open_connection()
+        cursor = self.conn.cursor()
+        cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ({values});")
+        self.conn.commit()
+        cursor.close()
+
+    def insert_table_with_params(self, table_name, columns, params):
         """Insert a table with parameters."""
         self.open_connection()
         cursor = self.conn.cursor()

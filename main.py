@@ -2,7 +2,6 @@ from promon_postgre import PSQLConnect
 from promon_faker import Fake
 from promon_yaml import Yaml
 
-
 yaml = Yaml(file_name='data.yml')
 host = yaml.get_data()['host']
 dbname = yaml.get_data()['database']
@@ -30,17 +29,17 @@ if yaml.get_data()['tables']:
     for table in yaml.get_data()['tables']:
         psql.drop_table(table['name'])
         psql.create_table(table['name'], table['columns'])
+
+        if yaml.get_data()['datacount'] > 0:
+            fake = Fake()
+            for n in range(yaml.get_data()['datacount']):
+                columns = ''
+                values = ''
+                for column in table['columns']:
+                    columns += column['name'] + ', '
+                    values += fake.get_data(column['stype']) + ', '
+                psql.insert_table(table['name'], columns[:-2], values[:-2])
+
     psql.close_connection()
 
-if yaml.get_data()['datacount']:
-    fake = Fake(locale='ru_RU', count=yaml.get_data()['datacount'])
-    # strim_id = fake.id()
-    # strim = fake.strim()
-    # strims = list(zip(strim_id, strim))
-
-
-# psql.drop_table('test.dict_strims')
-# psql.create_table('test.dict_strims', 'strim_id VARCHAR(255), strim VARCHAR(255), val INT')
-# psql.insert_table_with_params('test.dict_strims', 'strim_id, strim, val', values)
-#
 del psql
