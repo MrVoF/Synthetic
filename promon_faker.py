@@ -31,15 +31,15 @@ class Fake:
 
     def text(self):
         '''Генерация случайного текста'''
-        return "'" + self.faker.text() + "'"
+        return "'" + self.faker.text().replace("'", '`') + "'"
 
     def strim(self):
         '''Генерация случайных названий стримов'''
-        return "'" + self.faker.company() + "'"
+        return "'" + self.faker.company().replace("'", '`') + "'"
 
     def team(self):
         '''Генерация случайных названий команд'''
-        return "'" + self.faker.bs() + "'"
+        return "'" + self.faker.bs().replace("'", '`') + "'"
 
     def int(self):
         '''Генерация случайных целых чисел'''

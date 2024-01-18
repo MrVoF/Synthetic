@@ -1,5 +1,16 @@
+# Доступные типы семантических данных:
+#UUID
+#TEXT
+#STRIM
+#TEAM
+#INT
+#FLOAT
+#BOOLEAN
+#DATE
+#TIMESTAMP
+#NUMERIC
 
-datacount: 100 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
+datacount: 1000 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
 
 host: 192.168.56.103
 username: mrvof
@@ -25,3 +36,21 @@ tables:
         - name: strim
           type: VARCHAR(255)
           stype: STRIM
+
+    - name: test_table
+      columns:
+        - name: id
+          type: UUID
+          stype: UUID
+        - name: strim
+          type: VARCHAR(255)
+          stype: STRIM
+        - name: team
+          type: VARCHAR(255)
+          stype: TEAM
+        - name: value
+          type: INT
+          stype: INT
+        - name: indicator
+          type: bool
+          stype: BOOLEAN

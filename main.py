@@ -37,7 +37,7 @@ if yaml.get_data()['tables']:
                 values = ''
                 for column in table['columns']:
                     columns += column['name'] + ', '
-                    values += fake.get_data(column['stype']) + ', '
+                    values += str(fake.get_data(column['stype'])) + ', '
                 psql.insert_table(table['name'], columns[:-2], values[:-2])
 
     psql.close_connection()
