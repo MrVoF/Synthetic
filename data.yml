@@ -1,71 +1,59 @@
-# Доступные типы семантических данных:
-#UUID
-#TEXT
-#STRIM
-#TEAM
-#INT
-#FLOAT
-#BOOLEAN
-#DATE
-#TIMESTAMP
-#NUMERIC
-
 datacount: 1000 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
 
 host: 192.168.56.103
 username: mrvof
 password: Dk@lbvbh
 database: testdb
-schema: test
+schema: public
 
 tables:
-#    - name: dict_teams
-#      columns:
-#        - name: team_id
-#          type: UUID
-#          stype: UUID
-#        - name: team
-#          type: VARCHAR(255)
-#          stype: TEAM
-#
-#    - name: dict_strims
-#      columns:
-#        - name: strim_id
-#          type: UUID
-#          stype: UUID
-#        - name: strim
-#          type: VARCHAR(255)
-#          stype: STRIM
+    - name: dict_teams
+      columns:
+        - name: team_id
+          type: uuid
+          stype: uuid
+        - name: team
+          type: varchar(255)
+          stype: team
+
+    - name: dict_strims
+      columns:
+        - name: strim_id
+          type: uuid
+          stype: uuid
+        - name: strim
+          type: varchar(255)
+          stype: strim
 
     - name: test_table
       columns:
         - name: id
-          type: UUID
-          stype: UUID
+          type: uuid
+          stype: uuid
         - name: strim
-          type: VARCHAR(255)
-          stype: STRIM
+          type: varchar(255)
+          stype: strim
         - name: team
-          type: VARCHAR(255)
-          stype: TEAM
+          type: varchar(255)
+          stype: team
         - name: fio
-          type: VARCHAR(255)
-          stype: NAME
+          type: varchar(255)
+          stype: name
         - name: value
-          type: INT
-          stype: INT
+          type: int
+          stype: int
         - name: indicator
-          type: bool
-          stype: BOOLEAN
+          type: int
+          stype: booleannum
         - name: percent
-          type: FLOAT
-          stype: PERCENT
+          type: float
+          stype: percent
         - name: date
-          type: DATE
-          stype: DATE
+          type: date
+          stype: date
         - name: datetime
-          type: TIMESTAMP
-          stype: DATETIME
+          type: timestamp
+          stype: datetime
         - name: numeric
-          type: NUMERIC
-          stype: NUMERIC
+          type: numeric
+          stype: numeric

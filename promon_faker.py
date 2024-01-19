@@ -7,22 +7,21 @@ class Fake:
         self.locale = locale
         self.faker = Faker(locale)
 
-    def get_data(self, stype='TEXT'):
-        stype = stype.upper()
-        if stype == 'UUID': return self.uuid()
-        if stype == 'TEXT': return self.text()
-        if stype == 'INT': return self.int()
-        if stype == 'FLOAT': return self.float()
-        if stype == 'BOOLEAN': return self.bool()
-        if stype == 'PERCENT': return self.percent()
-        if stype == 'DATE': return self.date()
-        if stype == 'DATETIME': return self.datetime()
-        if stype == 'NUMERIC': return self.numeric()
-        if stype == 'STRIM': return self.strim()
-        if stype == 'TEAM': return self.team()
-        if stype == 'TEAM': return self.team()
-        if stype == 'TEAM': return self.team()
-        if stype == 'NAME': return self.name()
+    def get_data(self, stype='text'):
+        stype = stype.lower()
+        if stype == 'uuid': return self.uuid()
+        if stype == 'text': return self.text()
+        if stype == 'int': return self.int()
+        if stype == 'float': return self.float()
+        if stype == 'boolean': return self.bool()
+        if stype == 'booleannum': return self.boolnum()
+        if stype == 'percent': return self.percent()
+        if stype == 'date': return self.date()
+        if stype == 'datetime': return self.datetime()
+        if stype == 'numeric': return self.numeric()
+        if stype == 'strim': return self.strim()
+        if stype == 'team': return self.team()
+        if stype == 'name': return self.name()
 
         return ''
 
@@ -53,6 +52,10 @@ class Fake:
     def bool(self):
         '''Генерация случайных булевых значений'''
         return self.faker.pybool()
+
+    def boolnum(self):
+        '''Генерация случайных булевых значений'''
+        return 1 if self.faker.pybool() == True else 0
 
     def percent(self):
         '''Генерация случайных процентов'''

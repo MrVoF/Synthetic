@@ -1,4 +1,3 @@
-from loguru import logger
 import psycopg2
 from psycopg2.extras import execute_values
 
@@ -17,7 +16,7 @@ class PSQLConnect:
         self.password = password
 
     def __str__(self):
-        return f'{self.host} {self.port} {self.dbname} {self.username} {self.password}'
+        return f'{self.host} {self.port} {self.dbname} {self.schema} {self.username} {self.password}'
 
     def __del__(self):
         self.close_connection()
@@ -35,10 +34,10 @@ class PSQLConnect:
                     options=f"-c search_path={self.schema}"
                 )
             except psycopg2.DatabaseError as e:
-                logger.error(e)
+                print(e)
                 raise e
             finally:
-                logger.info('Connection opened successfully.')
+                print('Connection opened successfully.')
 
     def open_connection(self):
         if self.conn is None:
@@ -48,7 +47,7 @@ class PSQLConnect:
         if self.conn is not None:
             self.conn.close()
             self.conn = None
-            logger.info('Connection closed successfully.')
+            print('Connection closed successfully.')
 
     def check_database_exists(self, dbname):
         """Check if a database exists."""
