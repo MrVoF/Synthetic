@@ -20,7 +20,7 @@ def synthetic_data(file_name='data.yml', del_db=False):
 
             if yaml.get_data()['datacount'] > 0:
                 fake = Fake()
-                for n in range(yaml.get_data()['datacount']):
+                for _ in range(yaml.get_data()['datacount']):
                     columns = ''
                     values = ''
                     for column in table['columns']:

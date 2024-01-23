@@ -1,20 +1,33 @@
+#Доступные типы для синтетических данных:
+  #uuid - ID  стрима, команды и т.д.
+  #text(100) - синтетический текст определенной длины
+  #int - целое число
+  #float - десятичное число
+  #boolean - булевое значение (0 или 1)
+  #percent - процентное значение
+  #date - дата
+  #datetime - дата и время
+  #numeric - число с плавающей запятой (decimal)
+  #name - ФИО
+
+
 datacount: 1000 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
 
-host: 192.168.56.103
-username: mrvof
-password: Dk@lbvbh
-database: testdb
-schema: public
+host: 192.168.56.103 # адрес сервера PostgreSQL
+username: mrvof # имя пользователя
+password: Dk@lbvbh # пароль
+database: testdb # имя базы данных
+schema: public # имя схемы
 
-tables:
-    - name: dict_teams
-      columns:
-        - name: team_id
-          type: uuid
-          stype: uuid
+tables:  # создаваемые и заполняемые синтетическими данными таблицы
+    - name: dict_teams  # название таблицы
+      columns: # названия столбцов
+        - name: team_id # название столбца
+          type: uuid # тип столбца (в PostgreSQL)
+          stype: uuid # тип столбца (в синтетике)
         - name: team
           type: varchar(255)
-          stype: team
+          stype: text(255)
 
     - name: dict_strims
       columns:
@@ -23,7 +36,7 @@ tables:
           stype: uuid
         - name: strim
           type: varchar(255)
-          stype: strim
+          stype: text(255)
 
     - name: test_table
       columns:
@@ -32,10 +45,10 @@ tables:
           stype: uuid
         - name: strim
           type: varchar(255)
-          stype: strim
+          stype: text(255)
         - name: team
           type: varchar(255)
-          stype: team
+          stype: text(255)
         - name: fio
           type: varchar(255)
           stype: name
@@ -44,7 +57,7 @@ tables:
           stype: int
         - name: indicator
           type: int
-          stype: booleannum
+          stype: boolean
         - name: percent
           type: float
           stype: percent
@@ -57,3 +70,6 @@ tables:
         - name: numeric
           type: numeric
           stype: numeric
+        - name: text
+          type: varchar(20)
+          stype: text(20)

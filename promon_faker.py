@@ -5,24 +5,26 @@ class Fake:
 
     def __init__(self, locale='ru_RU'):
         self.locale = locale
-        self.faker = Faker(locale)
+        self.fake = Faker(locale)
 
     def get_data(self, stype='text'):
+        import re
+
         stype = stype.lower()
+        num = int(re.search(r'\d+', stype)[0]) if re.search(r'\d+', stype) else 0
+
         if stype == 'uuid': return self.uuid()
-        if stype == 'text': return self.text()
+        if re.search('text', stype): return self.text(num)
         if stype == 'int': return self.int()
         if stype == 'float': return self.float()
         if stype == 'boolean': return self.bool()
-        if stype == 'booleannum': return self.boolnum()
         if stype == 'percent': return self.percent()
         if stype == 'date': return self.date()
         if stype == 'datetime': return self.datetime()
         if stype == 'numeric': return self.numeric()
-        if stype == 'strim': return self.strim()
-        if stype == 'team': return self.team()
+        # if stype == 'strim': return self.strim()
+        # if stype == 'team': return self.team()
         if stype == 'name': return self.name()
-
         return ''
 
     def __str__(self):
@@ -30,53 +32,48 @@ class Fake:
 
     def uuid(self):
         '''Генерация случайных идентификаторов'''
-        import uuid
-        return "'" + str(uuid.uuid4()) + "'"
+        return "'" + self.fake.uuid4() + "'"
 
-    def text(self):
+    def text(self, num=100):
         '''Генерация случайного текста'''
-        return "'" + self.faker.text().replace("'", '`') + "'"
+        return "'" + self.fake.text(max_nb_chars=num).replace("'", '`') + "'"
 
     def int(self):
         '''Генерация случайных целых чисел'''
-        return self.faker.pyint()
+        return self.fake.pyint()
 
     def float(self):
         '''Генерация случайных чисел с плавающей запятой'''
-        return self.faker.pyfloat()
+        return self.fake.pyfloat()
 
     def numeric(self):
         '''Генерация случайных чисел с плавающей запятой'''
-        return self.faker.pydecimal()
+        return self.fake.pydecimal()
 
     def bool(self):
         '''Генерация случайных булевых значений'''
-        return self.faker.pybool()
-
-    def boolnum(self):
-        '''Генерация случайных булевых значений'''
-        return 1 if self.faker.pybool() == True else 0
+        return 1 if self.fake.pybool() == True else 0
 
     def percent(self):
         '''Генерация случайных процентов'''
-        return self.faker.pyfloat(left_digits=2, right_digits=2, min_value=0, max_value=1)
+        return self.fake.pyfloat(left_digits=2, right_digits=2, min_value=0, max_value=1)
 
     def date(self):
         '''Генерация случайных дат'''
-        return "'" + self.faker.date() + "'"
+        return "'" + self.fake.date() + "'"
 
     def datetime(self):
         '''Генерация случайных дат с временем'''
-        return "'" + str(self.faker.date_time()) + "'"
+        return "'" + str(self.fake.date_time()) + "'"
 
     def strim(self):
         '''Генерация случайных названий стримов'''
-        return "'" + self.faker.company().replace("'", '`') + "'"
+        return "'" + self.fake.company().replace("'", '`') + "'"
 
     def team(self):
         '''Генерация случайных названий команд'''
-        return "'" + self.faker.bs().replace("'", '`') + "'"
+        return "'" + self.fake.sentence(nb_words=5, ext_word_list=teams) + "'"
 
     def name(self):
         '''Генерация случайных имен'''
-        return "'" + self.faker.name().replace("'", '`') + "'"
+        return "'" + self.fake.name().replace("'", '`') + "'"
