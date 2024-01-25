@@ -4,7 +4,7 @@ from loguru import logger
 
 
 class PSQLConnect:
-    """PostgreSQL Database class."""
+    """Класс подключения к серверу PostgreSQL."""
 
     def __init__(self, host='localhost', port='5432', dbname='postgres', schema='public', username='postgres',
                  password='postgres'):
@@ -23,7 +23,7 @@ class PSQLConnect:
         self.close_connection()
 
     def connect(self):
-        """Connect to a Postgres database."""
+        """Подключение к серверу PostgreSQL."""
         if self.conn is None:
             try:
                 self.conn = psycopg2.connect(
@@ -51,7 +51,7 @@ class PSQLConnect:
             logger.success("Подключение к серверу PostgreSQL закрыто.")
 
     def check_database_exists(self, dbname):
-        """Check if a database exists."""
+        """Проверка существует ли база данных"""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -66,7 +66,7 @@ class PSQLConnect:
         return result
 
     def create_database(self, dbname):
-        """Create a database if it doesn't exist."""
+        """Создание базы данных."""
         self.open_connection()
         cursor = self.conn.cursor()
         if not self.check_database_exists(dbname):
@@ -81,7 +81,7 @@ class PSQLConnect:
         cursor.close()
 
     def drop_database(self, dbname):
-        """Drop a database if it exists."""
+        """Удаление базы данных."""
         self.open_connection()
         cursor = self.conn.cursor()
         if not self.check_database_exists(dbname):
@@ -96,26 +96,26 @@ class PSQLConnect:
         cursor.close()
 
     def create_schema(self, schema_name):
-        """Create a schema if it doesn't exist."""
+        """Создание схемы."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
-            cursor.execute(f"CREATE SCHEMA IF NOT EXISTS '{schema_name}';")
+            cursor.execute(f"CREATE SCHEMA IF NOT EXISTS \"{schema_name}\";")
         except psycopg2.DatabaseError as e:
             logger.error(e)
         else:
-            logger.success(f"Схема '{schema_name}' создана.")
+            logger.success(f"Схема \"{schema_name}\" создана.")
 
         self.conn.commit()
         cursor.close()
 
     def check_schema_exists(self, schema_name):
-        """Check if a schema exists."""
+        """Проверка существует ли схема."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
             cursor.execute(
-                f"SELECT EXISTS (SELECT FROM information_schema.schemata WHERE schema_name = '{schema_name}');")
+                f"SELECT EXISTS (SELECT FROM information_schema.schemata WHERE schema_name = \"{schema_name}\");")
         except psycopg2.DatabaseError as e:
             logger.error(e)
         else:
@@ -126,21 +126,21 @@ class PSQLConnect:
         return result
 
     def drop_schema(self, schema_name):
-        """Drop a schema if it exists."""
+        """Удаление схемы."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
-            cursor.execute(f"DROP SCHEMA IF EXISTS '{schema_name}' CASCADE;")
+            cursor.execute(f"DROP SCHEMA IF EXISTS \"{schema_name}\" CASCADE;")
         except psycopg2.DatabaseError as e:
             logger.error(e)
         else:
-            logger.success(f"Схема '{schema_name}' удалена.")
+            logger.success(f"Схема \"{schema_name}\" удалена.")
 
         self.conn.commit()
         cursor.close()
 
     def create_table(self, table_name, columns):
-        """Create a table."""
+        """Создание таблицы."""
         rows = ''
         for column in columns:
             rows += '"' + column['name'] + '" ' + column['type'] + ', '
@@ -158,7 +158,7 @@ class PSQLConnect:
         cursor.close()
 
     def create_table_with_params(self, table_name, columns, params):
-        """Create a table with parameters."""
+        """Создание таблицы с параметрами."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -172,7 +172,7 @@ class PSQLConnect:
         cursor.close()
 
     def insert_table(self, table_name, columns, values):
-        """Insert a table."""
+        """Запись в таблицу."""
         self.open_connection()
         cursor = self.conn.cursor()
         query = f"INSERT INTO \"{table_name}\" ({columns}) VALUES ({values});"
@@ -181,13 +181,13 @@ class PSQLConnect:
         except psycopg2.errors.SyntaxError as e:
             logger.error(e)
         else:
-            logger.opt(colors=True).success("Запись '<blue>{query}</blue>' добавлена.", query=query)
+            logger.opt(colors=True).success("Запись \"<blue>{query}</blue>\" добавлена.", query=query)
 
         self.conn.commit()
         cursor.close()
 
     def insert_table_with_params(self, table_name, columns, params):
-        """Insert a table with parameters."""
+        """Запись в таблицу с параметрами."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -195,13 +195,13 @@ class PSQLConnect:
         except psycopg2.errors.SyntaxError as e:
             logger.error(e)
         else:
-            logger.success("Запись добавлена.")
+            logger.opt(colors=True).success("Запись \"<blue>{query}</blue>\" добавлена.", query=query)
 
         self.conn.commit()
         cursor.close()
 
     def drop_table(self, table_name):
-        """Drop a table."""
+        """Удаление таблицы."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -215,7 +215,7 @@ class PSQLConnect:
         cursor.close()
 
     def truncate_table(self, table_name):
-        """Truncate a table."""
+        """Очистка таблицы."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -229,7 +229,7 @@ class PSQLConnect:
         cursor.close()
 
     def read_table(self, table_name):
-        """Read a table."""
+        """Чтение данных из таблицы."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
@@ -244,7 +244,7 @@ class PSQLConnect:
         return result
 
     def execute_query(self, query):
-        """Execute a query."""
+        """Выполнение запроса."""
         self.open_connection()
         cursor = self.conn.cursor()
         try:
