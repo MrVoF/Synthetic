@@ -1,4 +1,4 @@
-datacount: 1
+datacount: 100
 
 host: 192.168.56.103
 username: mrvof
@@ -124,5 +124,59 @@ tables:
           type: int
           stype: int
         - name: Incorrect_Delivery
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_25_Fixed_Decomposed_Widget
+      columns:
+        - name: ID
+          type: int
+          stype: int
+        - name: Issue_key
+          type: varchar(50)
+          stype: text(50)
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Decomposed
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_26_Supersprint_Estimation_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Issue_key
+          type: varchar(255)
+          stype: text(255)
+        - name: Original_Estimate
+          type: float
+          stype: float
+        - name: ID
+          type: int
+          stype: int
+        - name: Issue_Type
+          type: varchar(60)
+          stype: text(60)
+        - name: tech_SubMetric
+          type: varchar(5)
+          stype: text(5)
+
+    - name: _DASH_PLANING_27_Epic_w_KT_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Epic_KT
+          type: int
+          stype: int
+        - name: Epic_All
           type: int
           stype: int
