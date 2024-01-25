@@ -3,16 +3,16 @@ from promon_faker import Fake
 from promon_yaml import Yaml
 
 
-def synthetic_data(file_name='data.yml', del_db=False):
+def synthetic_data(file_name='data.yml'):
     yaml = Yaml(file_name=file_name)
     host = yaml.get_data()['host']
-    dbname = yaml.get_data()['database']
+    database = yaml.get_data()['database']
     schema = yaml.get_data()['schema']
     username = yaml.get_data()['username']
     password = yaml.get_data()['password']
 
     if yaml.get_data()['tables']:
-        psql = PSQLConnect(host=host, dbname=dbname, schema=schema, username=username, password=password)
+        psql = PSQLConnect(host=host, database=database, schema=schema, username=username, password=password)
         psql.open_connection()
         for table in yaml.get_data()['tables']:
             psql.drop_table(table['name'])
