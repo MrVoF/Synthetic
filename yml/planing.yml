@@ -1,0 +1,128 @@
+datacount: 100
+
+host: 192.168.56.103
+username: mrvof
+password: Dk@lbvbh
+database: testdb
+schema: public
+
+tables:
+    - name: _DASH_PLANING_10_Supersprint_Capacity
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(40)
+          stype: text(40)
+
+    - name: _DASH_PLANING_14_Epic_w_Project_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(10)
+          stype: text(10)
+
+    - name: _DASH_PLANING_15_Quotas_Structure_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: QuotasType
+          type: varchar(40)
+          stype: text(40)
+        - name: Quotas
+          type: varchar(20)
+          stype: text(20)
+        - name: Backlog
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_17_Fixed_Strim_TechGroup_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Strim_Technical_Group
+          type: varchar(255)
+          stype: text(255)
+        - name: Strim
+          type: varchar(255)
+          stype: text(255)
+
+    - name: _DASH_PLANING_18_Decomposed_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Decomposed
+          type: int
+          stype: int
+        - name: Alls
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_22_Supersprint_Backlog_Team_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Team_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Backlog_Team
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_23_Supersprint_First_Sprint_Backlog_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Team_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Backlog_First_Sprint
+          type: int
+          stype: int
+
+    - name: _DASH_PLANING_24_Delivery_Strim_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: uuid
+        - name: Supersprint
+          type: varchar(20)
+          stype: text(20)
+        - name: Delivery
+          type: int
+          stype: int
+        - name: Less_3_Delivery
+          type: int
+          stype: int
+        - name: Between_3_and_5_Delivery
+          type: int
+          stype: int
+        - name: More_5_Delivery
+          type: int
+          stype: int
+        - name: Incorrect_Delivery
+          type: int
+          stype: int

@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2.extras import execute_values
+from loguru import logger
 
 
 class PSQLConnect:
@@ -34,10 +35,10 @@ class PSQLConnect:
                     options=f"-c search_path={self.schema}"
                 )
             except psycopg2.DatabaseError as e:
-                print(e)
+                logger.error(e)
                 raise e
-            finally:
-                print('Connection opened successfully.')
+            else:
+                logger.info('Подключение к серверу PostgreSQL прошло успешно.')
 
     def open_connection(self):
         if self.conn is None:
@@ -47,13 +48,19 @@ class PSQLConnect:
         if self.conn is not None:
             self.conn.close()
             self.conn = None
-            print('Connection closed successfully.')
+            logger.info('Подключение к серверу PostgreSQL закрыто.')
 
     def check_database_exists(self, dbname):
         """Check if a database exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE datname = '{dbname}');")
+        try:
+            cursor.execute(f"SELECT EXISTS (SELECT FROM pg_database WHERE datname = '{dbname}');")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info('База данных существует.')
+
         result = cursor.fetchone()
         cursor.close()
         return result
@@ -63,7 +70,13 @@ class PSQLConnect:
         self.open_connection()
         cursor = self.conn.cursor()
         if not self.check_database_exists(dbname):
-            cursor.execute(f"CREATE DATABASE {dbname};")
+            try:
+                cursor.execute(f"CREATE DATABASE {dbname};")
+            except psycopg2.DatabaseError as e:
+                logger.error(e)
+            else:
+                logger.info(f'База данных {dbname} создана.')
+
             self.conn.commit()
         cursor.close()
 
@@ -72,7 +85,13 @@ class PSQLConnect:
         self.open_connection()
         cursor = self.conn.cursor()
         if not self.check_database_exists(dbname):
-            cursor.execute(f"DROP DATABASE IF EXISTS {dbname};")
+            try:
+                cursor.execute(f"DROP DATABASE IF EXISTS {dbname};")
+            except psycopg2.DatabaseError as e:
+                logger.error(e)
+            else:
+                logger.info(f'База данных {dbname} удалена.')
+
             self.conn.commit()
         cursor.close()
 
@@ -80,7 +99,13 @@ class PSQLConnect:
         """Create a schema if it doesn't exist."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
+        try:
+            cursor.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info(f'Схема {schema_name} создана.')
+
         self.conn.commit()
         cursor.close()
 
@@ -88,7 +113,13 @@ class PSQLConnect:
         """Check if a schema exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT EXISTS (SELECT FROM information_schema.schemata WHERE schema_name = '{schema_name}');")
+        try:
+            cursor.execute(f"SELECT EXISTS (SELECT FROM information_schema.schemata WHERE schema_name = '{schema_name}');")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info('Схема существует.')
+
         result = cursor.fetchone()
         cursor.close()
         return result
@@ -97,7 +128,13 @@ class PSQLConnect:
         """Drop a schema if it exists."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE;")
+        try:
+            cursor.execute(f"DROP SCHEMA IF EXISTS {schema_name} CASCADE;")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info(f'Схема {schema_name} удалена.')
+
         self.conn.commit()
         cursor.close()
 
@@ -107,9 +144,15 @@ class PSQLConnect:
         for column in columns:
             rows += column['name'] + ' ' + column['type'] + ', '
 
+        rows = rows[:-2]
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({rows[:-2]});")
+        try:
+            cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({rows});")
+        except psycopg2.errors.SyntaxError as e:
+            logger.error('Ошибка в синтаксисе запроса, проверьте корректность типов в yml файле.')
+        else:
+            logger.info('Таблица создана успешно.')
         self.conn.commit()
         cursor.close()
 
@@ -117,7 +160,13 @@ class PSQLConnect:
         """Create a table with parameters."""
         self.open_connection()
         cursor = self.conn.cursor()
-        execute_values(cursor, f"CREATE TABLE IF NOT EXISTS {table_name} ({columns}) VALUES %s", params)
+        try:
+            execute_values(cursor, f"CREATE TABLE IF NOT EXISTS {table_name} ({columns}) VALUES %s", params)
+        except psycopg2.errors.SyntaxError as e:
+            logger.error('Ошибка в синтаксисе запроса, проверьте корректность типов в yml файле.')
+        else:
+            logger.info('Таблица создана успешно.')
+
         self.conn.commit()
         cursor.close()
 
@@ -125,7 +174,13 @@ class PSQLConnect:
         """Insert a table."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ({values});")
+        try:
+            cursor.execute(f"INSERT INTO {table_name} ({columns}) VALUES ({values});")
+        except psycopg2.errors.SyntaxError as e:
+            logger.error(e)
+        else:
+            logger.info('Запись добавлена.')
+
         self.conn.commit()
         cursor.close()
 
@@ -133,7 +188,13 @@ class PSQLConnect:
         """Insert a table with parameters."""
         self.open_connection()
         cursor = self.conn.cursor()
-        execute_values(cursor, f"INSERT INTO {table_name} ({columns}) VALUES %s", params)
+        try:
+            execute_values(cursor, f"INSERT INTO {table_name} ({columns}) VALUES %s", params)
+        except psycopg2.errors.SyntaxError as e:
+            logger.error(e)
+        else:
+            logger.info('Запись добавлена.')
+
         self.conn.commit()
         cursor.close()
 
@@ -141,7 +202,13 @@ class PSQLConnect:
         """Drop a table."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+        try:
+            cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info(f'Таблица {table_name} удалена.')
+
         self.conn.commit()
         cursor.close()
 
@@ -149,7 +216,13 @@ class PSQLConnect:
         """Truncate a table."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"TRUNCATE TABLE {table_name};")
+        try:
+            cursor.execute(f"TRUNCATE TABLE {table_name};")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info(f'Таблица {table_name} очищена.')
+
         self.conn.commit()
         cursor.close()
 
@@ -157,7 +230,13 @@ class PSQLConnect:
         """Read a table."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(f"SELECT * FROM {table_name};")
+        try:
+            cursor.execute(f"SELECT * FROM {table_name};")
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info(f'Таблица {table_name} считана.')
+
         result = cursor.fetchall()
         cursor.close()
         return result
@@ -166,30 +245,11 @@ class PSQLConnect:
         """Execute a query."""
         self.open_connection()
         cursor = self.conn.cursor()
-        cursor.execute(query)
-        cursor.close()
+        try:
+            cursor.execute(query)
+        except psycopg2.DatabaseError as e:
+            logger.error(e)
+        else:
+            logger.info('Запрос выполнен.')
 
-    def execute_read_query(self, query):
-        """Execute a read query."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
-
-    def execute_write_query(self, query):
-        """Execute a write query."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query)
-        self.conn.commit()
-        cursor.close()
-
-    def execute_write_query_with_params(self, query, params):
-        """Execute a write query with parameters."""
-        self.open_connection()
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        self.conn.commit()
         cursor.close()

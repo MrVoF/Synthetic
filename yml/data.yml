@@ -1,0 +1,75 @@
+#Доступные типы для синтетических данных:
+#uuid - ID  стрима, команды и т.д.
+#text(100) - синтетический текст определенной длины
+#int - целое число
+#float - десятичное число
+#boolean - булевое значение (0 или 1)
+#percent - процентное значение
+#date - дата
+#datetime - дата и время
+#numeric - число с плавающей запятой (decimal)
+#name - ФИО
+
+
+datacount: 1000 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
+
+host: 192.168.56.103 # адрес сервера PostgreSQL
+username: mrvof # имя пользователя
+password: Dk@lbvbh # пароль
+database: testdb # имя базы данных
+schema: public # имя схемы
+
+tables: # создаваемые и заполняемые синтетическими данными таблицы
+  - name: dict_teams  # название таблицы
+    columns: # названия столбцов
+      - name: team_id # название столбца
+        type: uuid # тип столбца (в PostgreSQL)
+        stype: uuid # тип столбца (в синтетике)
+      - name: team
+        type: varchar(255)
+        stype: text(255)
+
+  - name: dict_strims
+    columns:
+      - name: strim_id
+        type: uuid
+        stype: uuid
+      - name: strim
+        type: varchar(255)
+        stype: text(255)
+
+  - name: test_table
+    columns:
+      - name: id
+        type: uuid
+        stype: uuid
+      - name: strim
+        type: varchar(255)
+        stype: text(255)
+      - name: team
+        type: varchar(255)
+        stype: text(255)
+      - name: fio
+        type: varchar(255)
+        stype: name
+      - name: value
+        type: int
+        stype: int
+      - name: indicator
+        type: int
+        stype: boolean
+      - name: percent
+        type: float
+        stype: percent
+      - name: date
+        type: date
+        stype: date
+      - name: datetime
+        type: timestamp
+        stype: datetime
+      - name: numeric
+        type: numeric
+        stype: numeric
+      - name: text
+        type: varchar(20)
+        stype: text(20)
