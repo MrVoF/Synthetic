@@ -30,11 +30,11 @@ class Fake:
 
     def uuid(self):
         """Генерация случайных идентификаторов"""
-        return '"' + self.fake.uuid4() + '"'
+        return "'" + self.fake.uuid4() + "'"
 
     def text(self, num=100):
         """Генерация случайного текста"""
-        return '"' + self.fake.text(max_nb_chars=num).replace('"', '`') + '"'
+        return "'" + self.fake.text(max_nb_chars=num).replace("'", '`') + "'"
 
     def int(self):
         """Генерация случайных целых чисел"""
@@ -58,12 +58,12 @@ class Fake:
 
     def date(self):
         """Генерация случайных дат"""
-        return '"' + self.fake.date() + '"'
+        return "'" + self.fake.date() + "'"
 
     def datetime(self):
         """Генерация случайных дат с временем"""
-        return '"' + str(self.fake.date_time()) + '"'
+        return "'" + str(self.fake.date_time()) + "'"
 
     def name(self):
         """Генерация случайных имен"""
-        return '"' + self.fake.name().replace('"', '`') + '"'
+        return "'" + self.fake.name().replace("'", '`') + "'"
