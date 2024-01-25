@@ -24,7 +24,7 @@ def synthetic_data(file_name='data.yml', del_db=False):
                     columns = ''
                     values = ''
                     for column in table['columns']:
-                        columns += column['name'] + ', '
+                        columns += '"' + column['name'] + '", '
                         values += str(fake.get_data(column['stype'])) + ', '
                     psql.insert_table(table['name'], columns[:-2], values[:-2])
 

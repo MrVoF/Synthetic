@@ -69,7 +69,7 @@ tables:
         - name: Decomposed
           type: int
           stype: int
-        - name: Alls
+        - name: All
           type: int
           stype: int
 
