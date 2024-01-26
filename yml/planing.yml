@@ -1,4 +1,4 @@
-datacount: 1
+datacount: 100
 
 host: 192.168.56.103
 username: mrvof
@@ -11,28 +11,31 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
         - name: Supersprint
           type: varchar(40)
-          stype: text(40)
+          stype: supersprint
 
     - name: _DASH_PLANING_14_Epic_w_Project_Widget
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(10)
-          stype: text(10)
+          stype: supersprint
 
     - name: _DASH_PLANING_15_Quotas_Structure_Widget
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: QuotasType
           type: varchar(40)
           stype: text(40)
@@ -47,25 +50,25 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Strim_Technical_Group
           type: varchar(255)
           stype: text(255)
         - name: Strim
           type: varchar(255)
-          stype: text(255)
+          stype: strim
 
     - name: _DASH_PLANING_18_Decomposed_Widget
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Decomposed
           type: int
           stype: int
@@ -77,13 +80,13 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Team_ID
           type: uuid
-          stype: uuid
+          stype: teamid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Backlog_Team
           type: int
           stype: int
@@ -92,13 +95,13 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Team_ID
           type: uuid
-          stype: uuid
+          stype: teamid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Backlog_First_Sprint
           type: int
           stype: int
@@ -107,10 +110,10 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Delivery
           type: int
           stype: int
@@ -137,7 +140,7 @@ tables:
           stype: text(50)
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Decomposed
           type: int
           stype: int
@@ -146,10 +149,10 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Issue_key
           type: varchar(255)
           stype: text(255)
@@ -170,10 +173,10 @@ tables:
       columns:
         - name: Strim_ID
           type: uuid
-          stype: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(20)
-          stype: text(20)
+          stype: supersprint
         - name: Epic_KT
           type: int
           stype: int
