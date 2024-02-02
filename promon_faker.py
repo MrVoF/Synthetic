@@ -8,12 +8,16 @@ class Fake:
         self.fake = Faker(locale)
         self.teams = []
         self.strims = []
+        self.departments = []
 
         for _ in range(100):
             self.teams += [(self.uuid(), self.text(50))]
 
         for _ in range(100):
             self.strims += [(self.uuid(), self.text(50))]
+
+        for _ in range(100):
+            self.departments += [(self.uuid(), self.text(50))]
 
     def get_data(self, rnd=0, stype='text'):
         import re
@@ -37,6 +41,8 @@ class Fake:
         if stype == 'team': return self.team(rnd)
         if stype == 'strimid': return self.strim_id(rnd)
         if stype == 'strim': return self.strim(rnd)
+        if stype == 'departmentid': return self.department_id(rnd)
+        if stype == 'department': return self.department(rnd)
 
         return ''
 
@@ -114,6 +120,10 @@ class Fake:
         """Генерация случайного id стрима"""
         return self.strims[rnd][0]
 
+    def department_id(self, rnd):
+        """Генерация случайного id департамента"""
+        return self.departments[rnd][0]
+
     def team(self, rnd):
         """Генерация случайной команды"""
         return self.teams[rnd][1]
@@ -121,3 +131,7 @@ class Fake:
     def strim(self, rnd):
         """Генерация случайного стрима"""
         return self.strims[rnd][1]
+
+    def department(self, rnd):
+        """Генерация случайного департамента"""
+        return self.departments[rnd][1]

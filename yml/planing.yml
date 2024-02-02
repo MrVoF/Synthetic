@@ -1,10 +1,10 @@
 datacount: 100
 
-host: 192.168.56.103
-username: mrvof
-password: Dk@lbvbh
-database: testdb
-schema: public
+host: d5ppmp-pgc001lk.corp.dev.vtb # адрес сервера PostgreSQL
+username: dashboard_dev_admin # имя пользователя
+password: xVzhRQgXFkYAQkgLE0peXsbBwQ0xwp # пароль
+database: dashboard_dev # имя базы данных
+schema: dashboard_dev # имя схемы
 
 tables:
     - name: _DASH_PLANING_10_Supersprint_Capacity
