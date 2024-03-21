@@ -1,10 +1,10 @@
 datacount: 100 # 0 - не заполнять таблицы синтетикой. Больше 0 - количество синтетических строк в таблице
 
-host:  # адрес сервера PostgreSQL
-username:  # имя пользователя
-password:  # пароль
-database:  # имя базы данных
-schema:  # имя схемы
+host: d5ppmp-pgc001lk.corp.dev.vtb # адрес сервера PostgreSQL
+username: dashboard_dev_admin # имя пользователя
+password: xVzhRQgXFkYAQkgLE0peXsbBwQ0xwp # пароль
+database: dashboard_dev # имя базы данных
+schema: dashboard_dev # имя схемы
 
 tables: # создаваемые и заполняемые синтетическими данными таблицы
   - name: dict_teams  # название таблицы

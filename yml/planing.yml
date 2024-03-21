@@ -1,25 +1,73 @@
-datacount: 100
+datacount: 10000
 
-host:  # адрес сервера PostgreSQL
-username:  # имя пользователя
-password:  # пароль
-database:  # имя базы данных
-schema:  # имя схемы
+host: d5ppmp-pgc001lk.corp.dev.vtb # адрес сервера PostgreSQL
+username: dashboard_dev_admin # имя пользователя
+password: xVzhRQgXFkYAQkgLE0peXsbBwQ0xwp # пароль
+database: dashboard_dev # имя базы данных
+schema: dashboard_dev # имя схемы
 
 tables:
-    - name: _DASH_PLANING_10_Supersprint_Capacity
+    - name: DASH_PLANING_90_Hirerarchy
       columns:
+        - name: Department_ID
+          type: uuid
+          stype: departmentid
+        - name: Department_Full_Name
+          type: varchar(255)
+          stype: department
+        - name: Strim_Technical_Group
+          type: varchar(15)
+          stype: list('ДАДМ', 'ДИТА', 'ДККиФМ', 'ДМиР', 'ДОПБ', 'ДУиО', 'ИТ-change', 'ИТ-run', 'КИБ', 'РБ', 'Риски', 'СМБ', 'ФД', 'ЦККО')
         - name: Strim_ID
           type: uuid
           stype: strimid
         - name: Strim
           type: varchar(255)
           stype: strim
+        - name: Strim_Type
+          type: varchar(100)
+          stype: text(100)
+        - name: Strim_Plan_Start_Date
+          type: date
+          stype: date
+        - name: Supersprint
+          type: varchar(20)
+          stype: supersprint
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Status
+          type: varchar(25)
+          stype: text(25)
+        - name: Team_Type
+          type: varchar(6)
+          stype: list('Run', 'Change')
+        - name: Team_Plan_Start_Date
+          type: date
+          stype: date
+        - name: Team_Fact_Start_Date
+          type: date
+          stype: date
+        - name: Team_Plan_End_Date
+          type: date
+          stype: date
+
+    - name: DASH_PLANING_10_Supersprint_Capacity
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
         - name: Supersprint
           type: varchar(40)
           stype: supersprint
+        - name: Capacity_Accessible
+          type: float
+          stype: float(0, 30000)
 
-    - name: _DASH_PLANING_14_Epic_w_Project_Widget
+    - name: DASH_PLANING_14_Epic_w_Project_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -27,8 +75,14 @@ tables:
         - name: Supersprint
           type: varchar(10)
           stype: supersprint
+        - name: Epic_Project
+          type: int
+          stype: int(0, 100)
+        - name: Epic_All
+          type: int
+          stype: int(0, 1000)
 
-    - name: _DASH_PLANING_15_Quotas_Structure_Widget
+    - name: DASH_PLANING_15_Quotas_Structure_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -38,30 +92,15 @@ tables:
           stype: supersprint
         - name: QuotasType
           type: varchar(40)
-          stype: text(40)
+          stype: list('Архитектурные задачи', 'Дефекты', 'Технический долг')
         - name: Quotas
           type: varchar(20)
-          stype: text(20)
+          stype: list('Соблюдено', 'Не соблюдено')
         - name: Backlog
           type: int
-          stype: int
+          stype: int(0, 1000)
 
-    - name: _DASH_PLANING_17_Fixed_Strim_TechGroup_Widget
-      columns:
-        - name: Strim_ID
-          type: uuid
-          stype: strimid
-        - name: Supersprint
-          type: varchar(20)
-          stype: supersprint
-        - name: Strim_Technical_Group
-          type: varchar(255)
-          stype: text(255)
-        - name: Strim
-          type: varchar(255)
-          stype: strim
-
-    - name: _DASH_PLANING_18_Decomposed_Widget
+    - name: DASH_PLANING_18_Decomposed_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -71,12 +110,12 @@ tables:
           stype: supersprint
         - name: Decomposed
           type: int
-          stype: int
+          stype: int(0, 100)
         - name: All
           type: int
-          stype: int
+          stype: int(0, 1000)
 
-    - name: _DASH_PLANING_22_Supersprint_Backlog_Team_Widget
+    - name: DASH_PLANING_22_Supersprint_Backlog_Team_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -89,9 +128,9 @@ tables:
           stype: supersprint
         - name: Backlog_Team
           type: int
-          stype: int
+          stype: boolean
 
-    - name: _DASH_PLANING_23_Supersprint_First_Sprint_Backlog_Widget
+    - name: DASH_PLANING_23_Supersprint_First_Sprint_Backlog_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -104,9 +143,9 @@ tables:
           stype: supersprint
         - name: Backlog_First_Sprint
           type: int
-          stype: int
+          stype: boolean
 
-    - name: _DASH_PLANING_24_Delivery_Strim_Widget
+    - name: DASH_PLANING_24_Delivery_Strim_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -116,36 +155,21 @@ tables:
           stype: supersprint
         - name: Delivery
           type: int
-          stype: int
+          stype: boolean
         - name: Less_3_Delivery
           type: int
-          stype: int
+          stype: boolean
         - name: Between_3_and_5_Delivery
           type: int
-          stype: int
+          stype: boolean
         - name: More_5_Delivery
           type: int
-          stype: int
+          stype: boolean
         - name: Incorrect_Delivery
           type: int
-          stype: int
+          stype: boolean
 
-    - name: _DASH_PLANING_25_Fixed_Decomposed_Widget
-      columns:
-        - name: ID
-          type: int
-          stype: int
-        - name: Issue_key
-          type: varchar(50)
-          stype: text(50)
-        - name: Supersprint
-          type: varchar(20)
-          stype: supersprint
-        - name: Decomposed
-          type: int
-          stype: int
-
-    - name: _DASH_PLANING_26_Supersprint_Estimation_Widget
+    - name: DASH_PLANING_26_Supersprint_Estimation_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -158,10 +182,10 @@ tables:
           stype: text(255)
         - name: Original_Estimate
           type: float
-          stype: float
+          stype: float(0, 1000))
         - name: ID
           type: int
-          stype: int
+          stype: int(1000000, 9999999)
         - name: Issue_Type
           type: varchar(60)
           stype: text(60)
@@ -169,7 +193,7 @@ tables:
           type: varchar(5)
           stype: text(5)
 
-    - name: _DASH_PLANING_27_Epic_w_KT_Widget
+    - name: DASH_PLANING_27_Epic_w_KT_Widget
       columns:
         - name: Strim_ID
           type: uuid
@@ -179,7 +203,67 @@ tables:
           stype: supersprint
         - name: Epic_KT
           type: int
-          stype: int
+          stype: int(0, 100)
         - name: Epic_All
           type: int
-          stype: int
+          stype: int(0, 1000)
+
+    - name: DASH_PLANING_31_Supersprint_Backlog_Strim_Widget
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Supersprint
+          type: varchar(20)
+          stype: supersprint
+        - name: Backlog_Strim
+          type: int
+          stype: boolean
+
+    - name: DASH_PLANING_40_Supersprint_Planned_Widget
+      columns:
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Supersprint
+          type: varchar(20)
+          stype: supersprint
+        - name: Team_Type_KPOCC
+          type: varchar(100)
+          stype: text(100)
+        - name: Team_Status
+          type: varchar(40)
+          stype: text(40)
+        - name: Team_Plan_Start_Date
+          type: date
+          stype: date
+        - name: Position_Provided
+          type: int
+          stype: int(0, 100)
+        - name: Position_All
+          type: int
+          stype: int(0, 1000)
+        - name: Position_Resources
+          type: float
+          stype: percent
+        - name: Planed_Team_Level
+          type: varchar(5)
+          stype: list('-', 'N/A', 'Да', 'Нет')
+        - name: Planned_Strim_Level
+          type: varchar(5)
+          stype: list('-', 'N/A', 'Да', 'Нет')
+        - name: Team_Type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: First_Sprint_Backlog_Metric
+          type: varchar(5)
+          stype: text(5)
+        - name: First_Sprint_Backlog_Value
+          type: varchar(5)
+          stype: text(5)
+        - name: Next_Sprints_Backlog_Metric
+          type: varchar(5)
+          stype: text(5)
+        - name: Next_Sprints_Backlog_Value
+          type: varchar(5)
+          stype: text(5)

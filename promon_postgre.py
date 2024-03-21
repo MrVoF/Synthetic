@@ -158,17 +158,18 @@ class PSQLConnect:
         self.conn.commit()
         cursor.close()
 
-    def insert_table(self, table, columns, values):
+    def insert_table(self, table, values):
         """Запись в таблицу."""
         self.open_connection()
         cursor = self.conn.cursor()
-        query = f"INSERT INTO \"{table}\" ({columns}) VALUES ({values});"
+        query = f"INSERT INTO \"{table}\" VALUES {values};"
         try:
             cursor.execute(query)
         except psycopg2.errors.SyntaxError as e:
             logger.error(e)
         else:
-            logger.opt(colors=True).success("Запись \"<blue>{query}</blue>\" добавлена.", query=query)
+            # logger.opt(colors=True).success("Запись \"<blue>{query}</blue>\" добавлена.", query=query)
+            logger.opt(colors=True).success("Запись добавлена.", query=query)
 
         self.conn.commit()
         cursor.close()
@@ -226,5 +227,5 @@ class PSQLConnect:
             logger.error(e)
         else:
             logger.opt(colors=True).success("Запрос \"<blue>{query}</blue>\" выполнен.", query=query)
-
+        self.conn.commit()
         cursor.close()

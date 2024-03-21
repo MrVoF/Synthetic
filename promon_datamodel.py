@@ -1,6 +1,8 @@
 from promon_postgre import PSQLConnect
 from promon_faker import Fake
 from promon_yaml import Yaml
+from promon_json import Json
+from promon_json import Json_data
 import random
 
 
@@ -20,15 +22,28 @@ def synthetic_data(file_name='data.yml'):
             psql.drop_table(table['name'])
             psql.create_table(table['name'], table['columns'])
             if yaml.get_data()['datacount'] > 0:
+                data = ''
                 for _ in range(yaml.get_data()['datacount']):
-                    columns = ''
-                    values = ''
-                    rnd = random.randint(0, 9)
+                    rnd = random.randint(0, 499)
+                    data += '('
                     for column in table['columns']:
-                        columns += '"' + column['name'] + '", '
-                        values += str(fake.get_data(rnd, column['stype'])) + ', '
-                    psql.insert_table(table['name'], columns[:-2], values[:-2])
-
+                        if type(fake.get_data(rnd, column['stype'])) == str:
+                            data += str("'" + fake.get_data(rnd, column['stype']) + "'") + ','
+                        else: data += str(fake.get_data(rnd, column['stype'])) + ','
+                    data = data[:-1]
+                    data += '),'
+                psql.insert_table(table['name'], data[:-1])
         psql.close_connection()
-
     del psql
+
+def json_data(file_name='data.yml'):
+    yaml = Yaml(file_name=file_name)
+    json_data = Json_data(count=yaml.get_data()['arraycount'])
+
+    if yaml.get_data()['parameters']:
+        data = dict()
+        for parameter in yaml.get_data()['parameters']:
+            for column in parameter['columns']:
+                data[column['name']] = json_data.get_data(column['type'], column['stype'])
+            json = Json(file_name=f"Python\Synthetic\json\{parameter['name']}.json")
+            json.save_data(data)

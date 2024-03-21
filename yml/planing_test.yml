@@ -1,0 +1,56 @@
+datacount: 10000
+
+host: d5ppmp-pgc001lk.corp.dev.vtb # адрес сервера PostgreSQL
+username: dashboard_dev_admin # имя пользователя
+password: xVzhRQgXFkYAQkgLE0peXsbBwQ0xwp # пароль
+database: dashboard_dev # имя базы данных
+schema: dashboard_dev # имя схемы
+
+tables:
+    - name: TEST_DASH_PLANING_90_Hirerarchy
+      columns:
+        - name: Department_Short_Name
+          type: varchar(255)
+          stype: text(10)
+        - name: Department_Full_Name
+          type: varchar(255)
+          stype: department
+        - name: Strim_Technical_Group
+          type: varchar(15)
+          stype: list('ДАДМ', 'ДИТА', 'ДККиФМ', 'ДМиР', 'ДОПБ', 'ДУиО', 'ИТ-change', 'ИТ-run', 'КИБ', 'РБ', 'Риски', 'СМБ', 'ФД', 'ЦККО')
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Strim_Type
+          type: varchar(100)
+          stype: text(100)
+        - name: Strim_Plan_Start_Date
+          type: date
+          stype: date
+        - name: Supersprint
+          type: varchar(20)
+          stype: supersprint
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Status
+          type: varchar(25)
+          stype: text(25)
+        - name: Team_Type
+          type: varchar(40)
+          stype: text(40)
+        - name: Team_Plan_Start_Date
+          type: date
+          stype: date
+        - name: Team_Fact_Start_Date
+          type: date
+          stype: date
+        - name: Team_Plan_End_Date
+          type: date
+          stype: date
