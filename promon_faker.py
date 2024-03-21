@@ -43,10 +43,13 @@ class Fake:
             rnddep = random.randint(0, 9)
             rndstrim = random.randint(0, 49)
 
-    def get_data(self, rnd, stype):
+    def get_data(self, stype, rnd=0):
         import re
 
-        self.rnd = rnd
+        if rnd == 0:
+            self.rnd = random.randint(0, 499)
+        else:
+            self.rnd = rnd
 
         if re.search('list\(', stype): return self.rndlist(list(re.findall(r"'(.*?)'", stype)))
         if stype == 'uuid': return self.uuid()

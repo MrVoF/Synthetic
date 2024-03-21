@@ -19,7 +19,7 @@ class Json:
 class Json_data:
     
     def __init__(self, count):
-        self.fake = Fake(count=100)
+        self.fake = Fake()
         self.count = count
         
     def get_data(self, type, stype):
