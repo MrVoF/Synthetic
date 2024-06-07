@@ -27,9 +27,11 @@ def synthetic_data(file_name='data.yml'):
                     rnd = random.randint(0, 499)
                     data += '('
                     for column in table['columns']:
-                        if type(fake.get_data(rnd, column['stype'])) == str:
-                            data += str("'" + fake.get_data(rnd, column['stype']) + "'") + ','
-                        else: data += str(fake.get_data(rnd, column['stype'])) + ','
+                        val = fake.get_data(column['stype'], rnd)
+                        if type(val) == str:
+                            data += str("'" + val + "'") + ','
+                        else:
+                            data += str(val) + ','
                     data = data[:-1]
                     data += '),'
                 psql.insert_table(table['name'], data[:-1])

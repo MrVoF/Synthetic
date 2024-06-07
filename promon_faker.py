@@ -6,12 +6,12 @@ class Fake:
 
     def __init__(self, locale='ru_RU'):
         self.fake = Faker(locale)
-        self.rnd = 0
         self.dst = []
+        self.infsys = []
+        self.key = []        
         departments = []
         strims = []
         teams = []
-
 
         for _ in range(10):
             departments += [(self.uuid(), self.text(50))]
@@ -22,10 +22,15 @@ class Fake:
         for _ in range(500):
             teams += [(self.uuid(), self.text(50))]
 
-        rnddep = random.randint(0, 9)
-        rndstrim = random.randint(0, 49) 
+        for _ in range(500):
+            self.infsys += [(self.int([1, 1000]), self.text(50))]
+
+        for _ in range(500):
+            self.key += [self.fake.word() + '-' + str(self.int([1, 9999]))]
 
         for i in range(500):
+            rnddep = random.randint(0, 9)
+            rndstrim = random.randint(0, 49)
             dep_id = departments[rnddep][0]
             dep = departments[rnddep][1]
             for val in self.dst:
@@ -33,29 +38,32 @@ class Fake:
                     dep_id = val[0]
                     dep = val[1]
 
-            self.dst += [[dep_id,
-                dep,
-                strims[rndstrim][0],
-                strims[rndstrim][1],
-                teams[i][0],
-                teams[i][1]]]
+            self.dst += [[dep_id, dep, strims[rndstrim][0], strims[rndstrim][1], teams[i][0], teams[i][1]]]
 
-            rnddep = random.randint(0, 9)
-            rndstrim = random.randint(0, 49)
+        with open("Python\\Synthetic\\logs\\departments.log", "w", encoding='utf-8') as f:
+            for val in departments: f.write(val[0] + "; " + val[1] + "\n")
+        with open("Python\\Synthetic\\logs\\strims.log", "w", encoding='utf-8') as f:
+            for val in strims: f.write(val[0] + "; " + val[1] + "\n")
+        with open("Python\\Synthetic\\logs\\teams.log", "w", encoding='utf-8') as f:
+            for val in teams: f.write(val[0] + "; " + val[1] + "\n")
+        with open("Python\\Synthetic\\logs\\dst.log", "w", encoding='utf-8') as f:
+            for val in self.dst: f.write(val[0] + "; " + val[1] + "; " + val[2] + "; " + val[3] + "; " + val[4] + "; " + val[5] + "\n")
 
-    def get_data(self, stype, rnd=0):
+    def get_data(self, stype, rnd=None):
         import re
 
-        if rnd == 0:
+        if rnd == None:
             self.rnd = random.randint(0, 499)
         else:
             self.rnd = rnd
 
-        if re.search('list\(', stype): return self.rndlist(list(re.findall(r"'(.*?)'", stype)))
+        self.stype = str(stype)
+
+        if re.search('list\(', self.stype): return self.rndlist(list(re.findall(r"'(.*?)'", self.stype)))
         if stype == 'uuid': return self.uuid()
-        if re.search('text\(', stype): return self.text(int(re.search(r'\d+', stype)[0]))
-        if re.search('int\(', stype,): return self.int(list(map(int, list(re.findall(r'\d+', stype)))))
-        if re.search('float\(', stype,): return self.float(list(map(float, list(re.findall(r'\d+', stype)))))
+        if re.search('text\(', self.stype): return self.text(int(re.search(r'\d+', self.stype)[0]))
+        if re.search('int\(', self.stype): return self.int(list(map(int, list(re.findall(r'[-+]?\d+', self.stype)))))
+        if re.search('float\(', self.stype): return self.float(list(map(float, list(re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', self.stype)))))
         if stype == 'bool': return self.bool()
         if stype == 'boolean': return self.boolean()
         if stype == 'percent': return self.percent()
@@ -71,6 +79,9 @@ class Fake:
         if stype == 'strim': return self.strim()
         if stype == 'departmentid': return self.department_id()
         if stype == 'department': return self.department()
+        if stype == 'infsysid': return self.informationsystem_id()
+        if stype == 'infsys': return self.informationsystem()
+        if stype == 'key': return self.issuekey()
 
         print(f"Тип {stype} не найден.")
 
@@ -95,7 +106,7 @@ class Fake:
 
     def float(self, params):
         """Генерация случайных чисел с плавающей запятой"""
-        return random.randrange(*params)
+        return random.uniform(*params)
 
     def numeric(self):
         """Генерация случайных чисел с плавающей запятой"""
@@ -115,22 +126,22 @@ class Fake:
 
     def date(self):
         """Генерация случайных дат"""
-        return self.fake.date()
+        return self.fake.date_between(start_date="-2y", end_date="today").strftime("%Y-%m-%d %H:%M:%S")
 
     def datetime(self):
         """Генерация случайных дат с временем"""
-        return str(self.fake.date_time())
+        return self.fake.date_between(start_date="-2y", end_date="today").strftime("%Y-%m-%d")
 
     def name(self):
         """Генерация случайных имен"""
         return self.fake.name().replace("'", '`')
 
-    def supersprint(self):
+    def sprint(self):
         """Генерация случайных суперспринтов"""
         import random
         from datetime import datetime
 
-        supersprint = (str(datetime.now().year) + '.' +
+        sprint = (str(datetime.now().year) + '.' +
                        str(random.choice(['0.1', '0.2',
                                           '1.1', '1.2', '1.3', '1.4', '1.5', '1.6',
                                           '2.1', '2.2', '2.3', '2.4', '2.5', '2.6',
@@ -138,9 +149,9 @@ class Fake:
                                           '4.1', '4.2', '4.3', '4.4', '4.5', '4.6'])
                            )
                        )
-        return supersprint
+        return sprint
 
-    def sprint(self):
+    def supersprint(self):
         """Генерация случайных спринтов"""
         import random
         from datetime import datetime
@@ -171,3 +182,15 @@ class Fake:
     def team(self):
         """Генерация случайной команды"""
         return self.dst[self.rnd][5]
+
+    def informationsystem_id(self):
+        """Генерация случайного id системы"""
+        return self.infsys[self.rnd][0]
+
+    def informationsystem(self):
+        """Генерация случайной системы"""
+        return self.infsys[self.rnd][1]
+
+    def issuekey(self):
+        """Генерация случайного issuekey"""
+        return self.key[self.rnd]

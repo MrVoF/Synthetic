@@ -1,0 +1,1355 @@
+datacount: 1000
+
+host: d5ppmp-pgc001lk.corp.dev.vtb # адрес сервера PostgreSQL
+username: dashboard_dev_admin # имя пользователя
+password: xVzhRQgXFkYAQkgLE0peXsbBwQ0xwp # пароль
+database: dashboard_dev # имя базы данных
+schema: dashboard_dev # имя схемы
+
+tables:
+    - name: DASH_STRIM_STANDARTS_all_dynamic_widget
+      columns:
+        - name: Metric_Num
+          type: varchar(5)
+          stype: list('1', '2', '3', '4', '6', '7', '8', '9.1', '9.2', '10', '11.1', '11.2', '11.3', '12', '13', '18.1', '19.2', '20', '21', '22', '23.1', '23.2', '24')
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Metric
+          type: float
+          stype: percent
+        - name: Criteria
+          type: float
+          stype: percent
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: NA
+          type: int
+          stype: boolean
+        - name: Changed_Value
+          type: varchar(32)
+          stype: list('-0.1%', '-0.5%', '-4.7%', '-9.4%', '-17.3%', '+0.3%', '+0.9%', '+3.7%', '+30.3%', '+17.4%', 'N')
+        - name: Arrow_Direction
+          type: int
+          stype: int(0, 3)
+        - name: Color
+          type: int
+          stype: int(0, 2)
+        - name: Hide
+          type: int
+          stype: int(0, 1)
+        - name: isInversedMetric
+          type: int
+          stype: int(0, 1)
+        - name: isBooleanMetric
+          type: int
+          stype: int(0, 1)
+
+    - name: DASH_STRIM_STANDARTS_02_02_Detail
+      columns:
+        - name: strim_id
+          type: uuid
+          stype: strimid
+        - name: strim
+          type: varchar(255)
+          stype: strim
+        - name: strim_type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: ris_id
+          type: int
+          stype: infsysid
+        - name: system_name
+          type: varchar(50)
+          stype: infsys
+        - name: ISContours
+          type: varchar(10)
+          stype: list('K3.K4.K5', 'K4.ST', 'K5', 'DEV', 'LT', 'ST', 'K4', 'DEV.K3', 'DEV.K4', 'K3')
+        - name: isTargetSystem
+          type: varchar(5)
+          stype: list('Да', 'Нет')
+        - name: category_critical
+          type: varchar(255)
+          stype: list(' ', 'Business Operational', 'Mission Critical', 'Business Critical', 'Other')
+        - name: DistinctContoursNum
+          type: int
+          stype: int(0, 6)
+        - name: RequiredContoursNum
+          type: int
+          stype: int(0, 6)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+
+    - name: DASH_STRIM_STANDARTS_03_01_Subcriterion_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Тип по ответственности за поставку
+          type: varchar(255)
+          stype: list('ДТРСПБ', 'ДППСС', 'ДТРРБ', 'ДИТА', 'ДОМЦР', 'ДАДМ', 'ДОКТР', 'ДТРКБ', 'ДРИ', 'ДТРОС', 'ДБ')
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Service_Type
+          type: varchar(255)
+          stype: list('Сервисная команда', 'Платформы', 'Экспертная команда', 'Каналы')
+        - name: Team_Start_Date
+          type: date
+          stype: date
+        - name: Team_End_Date
+          type: date
+          stype: date
+        - name: code
+          type: varchar(255)
+          stype: text(30)
+        - name: employeeName
+          type: varchar(255)
+          stype: text(255)
+        - name: endDate
+          type: date
+          stype: date
+        - name: positionTeamRoleName
+          type: varchar(255)
+          stype: text(255)
+        - name: resourceCategoryOriginal
+          type: varchar(6)
+          stype: list('ИТ', 'Бизнес')
+        - name: engagementPercentage
+          type: float
+          stype: int(1, 100)
+        - name: engagementFormatName
+          type: varchar(20)
+          stype: list('А', 'А (исключение)')
+        - name: positionFunctionalRoleName
+          type: varchar(255)
+          stype: text(255)
+        - name: positionFunctionalRole_Flag
+          type: int
+          stype: boolean
+        - name: RolePP
+          type: varchar(50)
+          stype: text(50)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: itDepFullName
+          type: varchar(255)
+          stype: department
+        - name: ReportProjectRoleId
+          type: uuid
+          stype: uuid
+        - name: MonitoringRoleId
+          type: uuid
+          stype: uuid
+        - name: TeamServiceType_Flag
+          type: int
+          stype: boolean
+
+    - name: DASH_STRIM_STANDARTS_03_02_Subcriterion_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: risid
+          type: int
+          stype: int(0, 1000)
+        - name: Название
+          type: varchar(255)
+          stype: text(255)
+        - name: НеРазвиваемаяБанкомИС
+          type: int
+          stype: boolean
+        - name: ДатаВыводаИзЭксплуатации
+          type: date
+          stype: datetime
+        - name: Статус
+          type: varchar(255)
+          stype: list('Эксплуатация', 'Реализация')
+        - name: Тип ИТ системы
+          type: varchar(255)
+          stype: list('Разработка', 'Прикладная')
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Start_Date
+          type: date
+          stype: date
+        - name: Team_End_Date
+          type: date
+          stype: date
+        - name: code
+          type: varchar(255)
+          stype: text(30)
+        - name: employeeName
+          type: varchar(255)
+          stype: text(30)
+        - name: endDate
+          type: date
+          stype: date
+        - name: positionTeamRoleName
+          type: varchar(255)
+          stype: text(255)
+        - name: resourceCategoryOriginal
+          type: varchar(6)
+          stype: list('ИТ', 'Бизнес')
+        - name: engagementPercentage
+          type: float
+          stype: int(1, 100)
+        - name: engagementFormatName
+          type: varchar(20)
+          stype: list('А', 'А (исключение)')
+        - name: RolePP
+          type: varchar(50)
+          stype: text(50)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: PositionalId
+          type: uuid
+          stype: uuid
+        - name: RoleStartDate
+          type: date
+          stype: datetime
+        - name: RoleEndDate
+          type: date
+          stype: datetime
+
+    - name: DASH_STRIM_STANDARTS_04_01_Detail
+      columns:
+        - name: ID_Strim
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: strim_type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: RIS_ID
+          type: int
+          stype: infsysid
+        - name: IS_Name
+          type: varchar(255)
+          stype: infsys
+        - name: ind_target_system
+          type: int
+          stype: boolean
+        - name: Critical_IS
+          type: varchar(5)
+          stype: list('ВС', 'МС')
+        - name: Environment
+          type: varchar(7)
+          stype: list('HOTFIX', 'IFT', 'PREPROD')
+        - name: DowntimeInSupersprint
+          type: int
+          stype: int(0, 1000)
+        - name: UptimeInSupersprint
+          type: int
+          stype: int(0, 10000)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+
+    - name: DASH_STRIM_STANDARTS_05_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: RisID
+          type: int
+          stype: infsysid
+        - name: IS_Name
+          type: varchar(255)
+          stype: infsys
+        - name: DevOps_IS
+          type: varchar(255)
+          stype: text(25)
+        - name: СтатусValue
+          type: varchar(25)
+          stype: list('Реализация', 'Эксплуатация')
+        - name: ProjectKey
+          type: varchar(7)
+          stype: list('ABY', 'AFS', 'GSS', 'KIS', 'TB')
+        - name: CI_NA
+          type: int
+          stype: boolean
+        - name: CI_date
+          type: date
+          stype: datetime
+        - name: CDL_date
+          type: date
+          stype: datetime
+        - name: CDP_date
+          type: date
+          stype: datetime
+        - name: k
+          type: int
+          stype: boolean
+        - name: j
+          type: int
+          stype: boolean
+        - name: h
+          type: int
+          stype: boolean
+        - name: p
+          type: int
+          stype: boolean
+        - name: MetricValue
+          type: int
+          stype: int(0, 100)
+        - name: CI_TotalEvents
+          type: int
+          stype: int(0, 1000)
+        - name: CDL_TotalEvents
+          type: int
+          stype: int(0, 1000)
+        - name: CDP_TotalEvents
+          type: int
+          stype: int(0, 1000)
+
+    - name: DASH_STRIM_STANDARTS_08_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Strim_Type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: IS_ID
+          type: int
+          stype: infsysid
+        - name: IS_Name
+          type: varchar(255)
+          stype: infsys
+        - name: IS_Project
+          type: int
+          stype: boolean
+        - name: IS_Test_ID
+          type: uuid
+          stype: uuid
+        - name: IS_Project_Exist
+          type: int
+          stype: boolean
+        - name: IS_Test_Exist
+          type: int
+          stype: boolean
+        - name: Story_Exist
+          type: int
+          stype: boolean
+        - name: Release_Exist
+          type: int
+          stype: boolean
+        - name: Criteria
+          type: int
+          stype: boolean
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+
+    - name: DASH_STRIM_STANDARTS_08_03_StrimIssues
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Strim_Type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: Release_Number
+          type: varchar(10)
+          stype: text(10)
+        - name: Release_Link
+          type: int
+          stype: boolean
+        - name: Status_Date
+          type: date
+          stype: datetime
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+
+    - name: DASH_STRIM_STANDARTS_10_02_data_fact
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Project_area_name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Work_type
+          type: varchar(30)
+          stype: list('Архитектурная задача', 'Дефект', 'Новая функциональность', 'Технический долг')
+        - name: Original Estimate
+          type: int
+          stype: int(0, 256)
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Reliability
+          type: int
+          stype: boolean
+        - name: Done_on_time
+          type: int
+          stype: boolean
+        - name: Source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_10_03_data_reliability
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Project_area_name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Work_type
+          type: varchar(30)
+          stype: list('Архитектурная задача', 'Дефект', 'Новая функциональность', 'Технический долг')
+        - name: sp_issue
+          type: varchar(8)
+          stype: sprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Fix_For_Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Reliability
+          type: int
+          stype: boolean
+        - name: Blocked
+          type: int
+          stype: boolean
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_11_1_05_Backlog_Priority_Balance_Data
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Jira_DSO_Project_Name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Issue_Type
+          type: varchar(30)
+          stype: list('Epic', 'Feature', 'Задача')
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: CC
+          type: varchar(6)
+          stype: supersprint
+        - name: Decomposed
+          type: int
+          stype: boolean
+        - name: Load_Date
+          type: date
+          stype: datetime
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_11_2_05_Backlog_Balance_Data
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Strim_Type
+          type: varchar(6)
+          stype: list('Change', 'Run')
+        - name: Fix_For_Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Project_Name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Custom_Status
+          type: varchar(20)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Work_Type
+          type: varchar(100)
+          stype: list('Архитектурная задача', 'Дефект', 'Линейная деятельность', 'Новая функциональность', 'Сопровождение', 'Технический долг')
+        - name: Original Estimate
+          type: int
+          stype: int(0, 800)
+        - name: Type
+          type: varchar(30)
+          stype: list('Вне квот', 'Квоты')
+        - name: LoadDate
+          type: date
+          stype: datetime
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_11_3_05_Closed_Quotas_Raw_Data
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Fix_For_Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Project_Name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Work_Type
+          type: varchar(100)
+          stype: list('Архитектурная задача', 'Дефект', 'Линейная деятельность', 'Новая функциональность', 'Сопровождение', 'Технический долг')
+        - name: Original_Estimate
+          type: int
+          stype: int(0, 800)
+        - name: Done_Date
+          type: date
+          stype: datetime
+        - name: Done_on_Time
+          type: int
+          stype: boolean
+        - name: Type
+          type: varchar(30)
+          stype: list('Вне квот', 'Квоты')
+        - name: LoadDate
+          type: date
+          stype: datetime
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_12_detail_data
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Jira_DSO_Project
+          type: varchar(255)
+          stype: text(30)
+        - name: Team_Service_Type_Custom
+          type: varchar(30)
+          stype: list('Каналы', 'Платформы', 'Сервисная команда', 'Экспертная команда')
+        - name: Team_Service_Type_ID
+          type: uuid
+          stype: uuid
+        - name: Team_project_area
+          type: varchar(30)
+          stype: list('PROPRO', 'RUN')
+        - name: Team_Status
+          type: varchar(30)
+          stype: list('Действует', 'Черновик')
+        - name: Team_Start_Date
+          type: date
+          stype: datetime
+        - name: Issue_id
+          type: varchar(10)
+          stype: text(10)
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Issue Type
+          type: varchar(30)
+          stype: list('Story', 'Task', 'Task RUN', 'Задача Run')
+        - name: Jira_key
+          type: varchar(10)
+          stype: text(10)
+        - name: issue_type_id
+          type: varchar(30)
+          stype: list('3', '4', '14', '10000', '10100', '12100')
+        - name: Due_Date
+          type: date
+          stype: datetime
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано', 'Снято')
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Work_Type
+          type: varchar(100)
+          stype: list('Архитектурная задача', 'Дефект', 'Линейная деятельность', 'Новая функциональность', 'Сопровождение', 'Технический долг')
+        - name: ind_custom_status_not_cancel
+          type: int
+          stype: boolean
+        - name: ind_propro
+          type: int
+          stype: boolean
+        - name: ind_sprint_not_null
+          type: int
+          stype: boolean
+        - name: ins_date
+          type: date
+          stype: datetime
+
+    - name: DASH_STRIM_STANDARTS_13_01_estimationsExt
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: issue_id
+          type: int
+          stype: int(100000000, 200000000)
+        - name: ss
+          type: varchar(6)
+          stype: supersprint
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: project_key
+          type: varchar(255)
+          stype: text(5)
+        - name: original_estimate_hour
+          type: int
+          stype: int(0, 100000)
+        - name: issuetype_id
+          type: varchar(255)
+          stype: list('1', '2', '5', '100000', '10002', '10100', '10701', '10803')
+        - name: issuetype_name
+          type: varchar(255)
+          stype: list('Defect', 'Epic', 'Feature')
+        - name: issuestatus_custom
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано', 'Снято')          
+        - name: issuestatus_name
+          type: varchar(30)
+          stype: list('Анализ', 'В работе', 'Внедрение', 'Выполнено', 'Закрыто', 'Исправление', 'Локализация', 'На исправлении', 'Отклонен исполнителем', 'Отложен', 'Подтверждение исправления', 'Создано', 'Тестирование')
+        - name: epic_id_for_feature_id
+          type: int
+          stype: int(0, 100000)
+        - name: original_estimate_hour_original
+          type: int
+          stype: int(0, 100000)
+        - name: resolution
+          type: varchar(60)
+          stype: text(60)
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: jira_key
+          type: varchar(30)
+          stype: key
+        - name: work_type
+          type: varchar(30)
+          stype: list('', '')
+        - name: Team_project_area
+          type: varchar(30)
+          stype: text(30)
+
+    - name: DASH_STRIM_STANDARTS_13_02_teamPowerExt
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Start_Date
+          type: date
+          stype: datetime
+        - name: PositionCode
+          type: varchar(255)
+          stype: text(30)
+        - name: EmployeeName
+          type: varchar(255)
+          stype: name
+        - name: EmployeeStartDate
+          type: date
+          stype: datetime
+        - name: EmployeeCountStartDate
+          type: date
+          stype: datetime
+        - name: EndDate
+          type: date
+          stype: datetime
+        - name: EstimatedRole
+          type: varchar(100)
+          stype: list('DevOps', 'UX/UI', 'Аналитик', 'ИТ-Лидер команды', 'Лидер команды', 'Прочие участники стрима вне команд', 'Разработчик', 'Скрам-мастер', 'Тестировщик', 'Участник команды и прочее')
+        - name: PositionStatus
+          type: varchar(30)
+          stype: list('Закрыта', 'Обеспечена', 'Потребность')
+        - name: resourceCategoryOriginal
+          type: varchar(6)
+          stype: list('Бизнес', 'ИТ')
+        - name: engagementPercentage
+          type: int
+          stype: int(0, 100)
+        - name: Engagement_Format
+          type: varchar(30)
+          stype: list('А', 'А (исключение)', 'Б')
+        - name: Jira_DSO_Project
+          type: varchar(255)
+          stype: text(30)
+        - name: AvailableCapacityAccessible
+          type: float
+          stype: float(0, 125)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+
+    - name: DASH_STRIM_STANDARTS_16_01_position_agile_propro_data
+      columns:
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: title
+          type: varchar(255)
+          stype: name
+        - name: employeeNumber
+          type: int
+          stype: int(70000000, 80000000)
+        - name: startDate_fact
+          type: date
+          stype: datetime
+        - name: supersprint_name
+          type: varchar(6)
+          stype: supersprint
+        - name: engagementPercentage
+          type: int
+          stype: int(0, 100)
+        - name: ind_agile
+          type: int
+          stype: boolean
+        - name: ind_propro
+          type: int
+          stype: boolean
+
+    - name: DASH_STRIM_STANDARTS_17_01_team_detailing
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Start_Date
+          type: date
+          stype: datetime
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Type
+          type: varchar(30)
+          stype: list('Story', 'Task', 'Defect')
+        - name: Work_type
+          type: varchar(30)
+          stype: list('Архитектурная задача', 'Дефект', 'Линейная деятельность', 'Новая функциональность', 'Сопровождение', 'Технический долг')
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано', 'Снято')
+        - name: Original_Estimate
+          type: int
+          stype: int(0, 80)
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Sprint_inclusion_date
+          type: date
+          stype: datetime
+        - name: Added_after_start
+          type: int
+          stype: boolean
+
+    - name: DASH_STRIM_STANDARTS_18_1_10_Data
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: Team_Service_Type
+          type: varchar(255)
+          stype: text(30)
+        - name: Team_Start_Date
+          type: date
+          stype: datetime
+        - name: Team_End_Date
+          type: date
+          stype: datetime
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Jira_DSO_Project_NAme
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: Status
+          type: varchar(100)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Готово к разработке', 'Закрыто', 'Исправление', 'ИТ', 'Локализация', 'Отложен', 'Подтверждение', 'Подтверждение исправления', 'Проектирование', 'ПСИ', 'Разработка', 'Создано', 'СТ', 'СТ Завершено', 'Тестирование')
+        - name: Custom_Status
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Дубликат', 'Отклонено', 'Отменен инициатором')
+        - name: Issue_Type
+          type: varchar(30)
+          stype: list('Defect', 'Epic', 'Feature', 'Story', 'Task')
+        - name: Original_Estimate
+          type: int
+          stype: int(0, 80)
+        - name: Done_date
+          type: date
+          stype: datetime
+        - name: Done_In_Time
+          type: int
+          stype: boolean
+        - name: source
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: Jirakey
+          type: varchar(10)
+          stype: text(10)
+
+    - name: DASH_STRIM_STANDARTS_18_2_Detail
+      columns:
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Team_ID
+          type: uuid
+          stype: teamid
+        - name: Team
+          type: varchar(255)
+          stype: team
+        - name: project_key
+          type: varchar(255)
+          stype: text(5)
+        - name: issue_id
+          type: int
+          stype: int(100000000, 200000000)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: EstimateHours
+          type: int
+          stype: int(0, 152000)
+        - name: issuestatus_name
+          type: varchar(30)
+          stype: list('Выполнено', 'Закрыто')
+        - name: issuestatus_custom
+          type: varchar(30)
+          stype: list('Сделано')
+        - name: issuetype_name
+          type: varchar(30)
+          stype: list('Epic')
+        - name: resolution_name
+          type: varchar(30)
+          stype: list('Готово')
+        - name: Delivery_Essential_Strim
+          type: varchar(30)
+          stype: list('ДА')
+        - name: Delivery_Essential_Team
+          type: varchar(30)
+          stype: list('Да')
+        - name: Delivery_Priority
+          type: varchar(5)
+          stype: list('1', '2', '3')
+        - name: Delivery_Correct
+          type: int
+          stype: boolean
+        - name: Done_date
+          type: date
+          stype: datetime
+        - name: DoneOnTime
+          type: int
+          stype: boolean
+        - name: EpicExcludeFile
+          type: varchar(5)
+          stype: list('0')
+        - name: EpicAddedInFile
+          type: varchar(5)
+          stype: list('0')
+
+    - name: DASH_STRIM_STANDARTS_19_1_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Стрим
+          type: varchar(255)
+          stype: strim
+        - name: ИД аварии
+          type: varchar(10)
+          stype: text(10)
+        - name: Стрим из Аварии
+          type: varchar(255)
+          stype: strim
+        - name: Категория аварии
+          type: varchar(30)
+          stype: list('Высокий', 'Критический')
+        - name: Подкатегория причины аварии
+          type: varchar(30)
+          stype: list('Firmware', 'Middleware', 'Аппаратная', 'Другое', 'ИБП', 'Ошибка исполнения', 'Электропитание')
+        - name: Дата фактического начала Аварии
+          type: timestamp
+          stype: datetime
+        - name: Время выявления Аварии
+          type: timestamp
+          stype: datetime
+        - name: Суперспринт
+          type: varchar(6)
+          stype: supersprint
+        - name: Связь с ЗНИ
+          type: varchar(10)
+          stype: text(10)
+        - name: Стрим из ЗНИ
+          type: varchar(255)
+          stype: strim
+        - name: Тип связи
+          type: varchar(30)
+          stype: list('Вызвано изменением')
+        - name: ЗНИ авторизовано
+          type: varchar(30)
+          stype: list('Да', 'Нет')
+        - name: Время смены фазы ЗНИ
+          type: timestamp
+          stype: datetime
+        - name: Сверка времени
+          type: int
+          stype: boolean
+
+    - name: DASH_STRIM_STANDARTS_19_2_Detail
+      columns:
+        - name: Стрим ID
+          type: uuid
+          stype: strimid
+        - name: Стрим
+          type: varchar(255)
+          stype: strim
+        - name: ИД ЗНИ
+          type: varchar(10)
+          stype: text(10)
+        - name: Тип ЗНИ
+          type: varchar(30)
+          stype: list('Стандартизированное', 'Плановое', 'Плановый', 'Экстренное (хот-фикс)', 'Экстренный (хот-фикс)')
+        - name: Категория экстренных ЗНИ
+          type: varchar(30)
+          stype: list('Авария', 'Предаварийная ситуация', 'Срочное изменение')
+        - name: Дата планового начала выполнения
+          type: timestamp
+          stype: datetime
+        - name: Суперспринт
+          type: varchar(6)
+          stype: supersprint
+        - name: Фаза
+          type: varchar(50)
+          stype: list('Закрытие', 'Подтверждение результатов реализации', 'Реализация')
+        - name: Код закрытия
+          type: varchar(30)
+          stype: list('Выполнено неуспешно', 'Выполнено успешно', 'Выполнено частично', 'Работы отменены')
+
+    - name: DASH_STRIM_STANDARTS_20_Claims_Jira_DSO_0
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: ID
+          type: varchar(30)
+          stype: key
+        - name: Numerator
+          type: int
+          stype: boolean
+        - name: Original_Estimate
+          type: int
+          stype: int(0, 18000)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Status
+          type: varchar(30)
+          stype: list('Выполнено', 'Завершено', 'Закрыто')
+        - name: Created_datetime
+          type: timestamp
+          stype: datetime
+        - name: Resolved_datetime
+          type: timestamp
+          stype: datetime
+        - name: Closed_datetime
+          type: timestamp
+          stype: datetime
+        - name: Service_Request
+          type: varchar(255)
+          stype: text(255)
+        - name: Jira_DSO
+          type: int
+          stype: boolean
+        - name: DIRECTION
+          type: varchar(255)
+          stype: text(255)
+        - name: WorkgroupHeadDepartmentName
+          type: varchar(255)
+          stype: department
+        - name: is_SSP_IT
+          type: int
+          stype: boolean
+        - name: WorkgroupHeadName
+          type: varchar(255)
+          stype: name
+        - name: source
+          type: varchar(5)
+          stype: list('SM', 'Сфера')
+
+    - name: DASH_STRIM_STANDARTS_21_Claims_Detail
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Стрим
+          type: varchar(255)
+          stype: strim
+        - name: ID
+          type: varchar(10)
+          stype: text(10)
+        - name: Суперспринт
+          type: varchar(6)
+          stype: supersprint
+        - name: Статус претензии
+          type: varchar(30)
+          stype: list('Выполнено', 'Завершено', 'Закрыто', 'Назначено', 'Ожидание')
+        - name: Срок по SLA нарушен
+          type: varchar(30)
+          stype: list('Да', 'Нет')
+        - name: Связанный дефект
+          type: varchar(10)
+          stype: text(10)
+        - name: Команда
+          type: varchar(20)
+          stype: text(20)
+        - name: Дата создания претензии
+          type: timestamp
+          stype: datetime
+        - name: Дата завершения
+          type: timestamp
+          stype: datetime
+        - name: Время решения претензии
+          type: float
+          stype: float(0, 5)
+        - name: Время приостановки решения
+          type: float
+          stype: float(0, 200)
+        - name: Время закрытия
+          type: timestamp
+          stype: datetime
+        - name: Время завершения выполнения
+          type: timestamp
+          stype: datetime
+        - name: WorkgroupHeadDepartmentName
+          type: varchar(255)
+          stype: department
+        - name: is_SSP_IT
+          type: int
+          stype: boolean
+        - name: source
+          type: varchar(5)
+          stype: list('SM', 'Сфера')
+
+    - name: DASH_STRIM_STANDARTS_22_ZNO
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Number
+          type: varchar(10)
+          stype: text(10)
+        - name: Numerator
+          type: int
+          stype: boolean
+        - name: CC
+          type: varchar(6)
+          stype: supersprint
+        - name: Status
+          type: varchar(30)
+          stype: list('Выполнено', 'Завершено', 'Закрыто')
+        - name: Close_date
+          type: timestamp
+          stype: datetime
+        - name: Tpl_name_display
+          type: varchar(255)
+          stype: text(255)
+        - name: Numerator_YESNO
+          type: varchar(5)
+          stype: list('Да', 'Нет')
+
+    - name: DASH_STRIM_STANDARTS_23_Incidents
+      columns:
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: Number
+          type: varchar(10)
+          stype: text(10)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint          
+        - name: Numerator
+          type: varchar(5)
+          stype: list('Да', 'Нет')
+        - name: Status
+          type: varchar(30)
+          stype: list('Закрыто')
+        - name: Resolved_datetime
+          type: timestamp
+          stype: datetime
+        - name: Closed_datetime
+          type: timestamp
+          stype: datetime
+
+    - name: DASH_STRIM_STANDARTS_24_10_PROD_Defects_Data
+      columns:
+        - name: Strim
+          type: varchar(255)
+          stype: strim
+        - name: RIS_ID
+          type: int
+          stype: infsysid
+        - name: RIS_Name
+          type: varchar(30)
+          stype: text(30)
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Sprint
+          type: varchar(8)
+          stype: sprint
+        - name: Jira_DSO_Project_Name
+          type: varchar(255)
+          stype: text(30)
+        - name: Issuekey
+          type: varchar(30)
+          stype: key
+        - name: PROD_Phase
+          type: varchar(30)
+          stype: list('ПРОМ', 'Установка в ПРОМ')
+        - name: PROD_Environment
+          type: varchar(30)
+          stype: list('ПРОМ')
+        - name: Priority
+          type: varchar(30)
+          stype: list('High', 'Highest', 'Low', 'Medium')
+        - name: Status_Original
+          type: varchar(30)
+          stype: list('Анализ', 'Внедрение', 'Закрыто', 'Локализация', 'На исправлении', 'Отложен', 'Подтверждение исправления', 'Создано', 'Тестирование')
+        - name: Status_Custom
+          type: varchar(30)
+          stype: list('В работе', 'К выполнению', 'Сделано')
+        - name: Resolution
+          type: varchar(30)
+          stype: list('Готово', 'Исправлен', 'Не будет исправлен')
+        - name: SM_ID
+          type: varchar(10)
+          stype: text(10)
+        - name: SM_Type
+          type: varchar(30)
+          stype: list('Авария', 'Инцидент', 'Проблема')
+        - name: SM_STATUS
+          type: varchar(30)
+          stype: list('В работе', 'Диагностика', 'Документирование', 'Завершено', 'Закрыто', 'Контроль', 'Назначено', 'Ожидание')
+        - name: SM_Priority_Code
+          type: varchar(30)
+          stype: list('1', '2', '3', '3 - Средний', '4')
+        - name: SM_Workaround
+          type: varchar(30)
+          stype: list('0')
+        - name: Date_Closed
+          type: timestamp
+          stype: datetime
+        - name: Date_Fix_Plan
+          type: timestamp
+          stype: datetime
+        - name: SM_Closed_Date
+          type: timestamp
+          stype: datetime
+        - name: SM_Resolved_Date
+          type: timestamp
+          stype: datetime
+        - name: Fix_On_Time
+          type: int
+          stype: boolean

@@ -15,23 +15,14 @@ tables:
         - name: Department_Full_Name
           type: varchar(255)
           stype: department
-        - name: Strim_Technical_Group
-          type: varchar(15)
-          stype: list('ДАДМ', 'ДИТА', 'ДККиФМ', 'ДМиР', 'ДОПБ', 'ДУиО', 'ИТ-change', 'ИТ-run', 'КИБ', 'РБ', 'Риски', 'СМБ', 'ФД', 'ЦККО')
         - name: Strim_ID
           type: uuid
           stype: strimid
         - name: Strim
           type: varchar(255)
           stype: strim
-        - name: Strim_Type
-          type: varchar(100)
-          stype: text(100)
-        - name: Strim_Plan_Start_Date
-          type: date
-          stype: date
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Team_ID
           type: uuid
@@ -39,21 +30,6 @@ tables:
         - name: Team
           type: varchar(255)
           stype: team
-        - name: Team_Status
-          type: varchar(25)
-          stype: text(25)
-        - name: Team_Type
-          type: varchar(6)
-          stype: list('Run', 'Change')
-        - name: Team_Plan_Start_Date
-          type: date
-          stype: date
-        - name: Team_Fact_Start_Date
-          type: date
-          stype: date
-        - name: Team_Plan_End_Date
-          type: date
-          stype: date
 
     - name: DASH_PLANING_10_Supersprint_Capacity
       columns:
@@ -61,7 +37,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(40)
+          type: varchar(6)
           stype: supersprint
         - name: Capacity_Accessible
           type: float
@@ -73,7 +49,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(10)
+          type: varchar(6)
           stype: supersprint
         - name: Epic_Project
           type: int
@@ -88,7 +64,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: QuotasType
           type: varchar(40)
@@ -106,7 +82,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Decomposed
           type: int
@@ -124,7 +100,7 @@ tables:
           type: uuid
           stype: teamid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Backlog_Team
           type: int
@@ -139,7 +115,7 @@ tables:
           type: uuid
           stype: teamid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Backlog_First_Sprint
           type: int
@@ -151,7 +127,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Delivery
           type: int
@@ -175,11 +151,11 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Issue_key
-          type: varchar(255)
-          stype: text(255)
+          type: varchar(10)
+          stype: text(10)
         - name: Original_Estimate
           type: float
           stype: float(0, 1000))
@@ -188,7 +164,7 @@ tables:
           stype: int(1000000, 9999999)
         - name: Issue_Type
           type: varchar(60)
-          stype: text(60)
+          stype: list('Epic', 'Feature', 'Дефект', 'Задача', 'История')
         - name: tech_SubMetric
           type: varchar(5)
           stype: text(5)
@@ -199,7 +175,7 @@ tables:
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Epic_KT
           type: int
@@ -208,13 +184,133 @@ tables:
           type: int
           stype: int(0, 1000)
 
+    - name: DASH_PLANING_30_DWH_for_Users_Widget
+      columns:
+        - name: Департамент
+          type: varchar(255)
+          stype: department
+        - name: Стрим
+          type: varchar(255)
+          stype: strim
+        - name: Команда
+          type: varchar(255)
+          stype: team
+        - name: Название из
+          type: varchar(10)
+          stype: list('Jira DSO', 'КРОСС')
+        - name: Issue-key
+          type: varchar(10)
+          stype: text(10)
+        - name: Статус
+          type: varchar(50)
+          stype: list('Анализ', 'В ожидании', 'В работе', 'Внедрение', 'Выполнено', 'Закрыто', 'СТ', 'ПСИ')
+        - name: Summary
+          type: varchar(255)
+          stype: text(255)
+        - name: Issue type
+          type: varchar(60)
+          stype: list('Epic', 'Feature', 'Дефект', 'Задача', 'История')
+        - name: Sprint
+          type: varchar(20)
+          stype: sprint
+        - name: Supersprint
+          type: varchar(6)
+          stype: supersprint
+        - name: Original Estimate
+          type: int
+          stype: int(0, 1000000)
+        - name: Тип работ
+          type: varchar(60)
+          stype: list('Архитектурная задача', 'Дефект', 'Линейная деятельность', 'Новая функциональность', 'Сопровождение', 'Технический долг')
+        - name: Программа-заказчик
+          type: varchar(50)
+          stype: text(50)
+        - name: Проект-заказчик
+          type: varchar(50)
+          stype: text(50)
+        - name: Стрим-заказчик
+          type: varchar(50)
+          stype: text(50)
+        - name: Due date
+          type: date
+          stype: date
+        - name: Resolution
+          type: varchar(50)
+          stype: text(50)
+        - name: Код проектной области
+          type: varchar(10)
+          stype: list('AAI', 'ABSRBADM', 'ACC', 'ACS', 'BFKOOD', 'DORC')
+        - name: Custom Status
+          type: varchar(20)
+          stype: list('В работе', 'К выполнению', 'Сделано', 'Снято')
+        - name: Категория проектной области
+          type: varchar(20)
+          stype: list('stream', 'team', 'Команды PROPRO', 'Стримы PROPRO')
+        - name: Ключевая поставка стрима
+          type: int
+          stype: boolean
+        - name: Приоритет поставки
+          type: int
+          stype: int(1, 3)
+        - name: Целевой СС поставки
+          type: varchar(6)
+          stype: supersprint
+        - name: Ключевая поставка команды
+          type: int
+          stype: boolean
+        - name: Весовой коэффициент
+          type: int
+          stype: int(1, 10)
+        - name: Выбор стрима
+          type: varchar(255)
+          stype: strim
+        - name: Выбор команды
+          type: varchar(255)
+          stype: team
+        - name: Целевая дата поставки
+          type: date
+          stype: date
+        - name: Прогноз выполнения (КОБР)
+          type: varchar(30)
+          stype: list('будет выполнен в срок', 'изменен приоритет', 'отложен', 'риск невыполнения в срок')
+        - name: Комментарий к прогнозу выполнения
+          type: varchar(255)
+          stype: text(255)
+        - name: Done date
+          type: timestamp
+          stype: datetime
+        - name: Уникальные issues
+          type: int
+          stype: boolean
+        - name: Strim_ID
+          type: uuid
+          stype: strimid
+        - name: KT_ID
+          type: varchar(10)
+          stype: text(10)
+        - name: KT_Name
+          type: varchar(100)
+          stype: text(100)
+        - name: Correct_Delivery
+          type: int
+          stype: boolean
+        - name: spec_limit
+          type: int
+          stype: boolean
+        - name: from_jira_subo
+          type: varchar(30)
+          stype: list('jira', 'subo')
+        - name: jira_key
+          type: varchar(10)
+          stype: text(10)
+
     - name: DASH_PLANING_31_Supersprint_Backlog_Strim_Widget
       columns:
         - name: Strim_ID
           type: uuid
           stype: strimid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
         - name: Backlog_Strim
           type: int
@@ -226,23 +322,14 @@ tables:
           type: uuid
           stype: teamid
         - name: Supersprint
-          type: varchar(20)
+          type: varchar(6)
           stype: supersprint
-        - name: Team_Type_KPOCC
-          type: varchar(100)
-          stype: text(100)
-        - name: Team_Status
-          type: varchar(40)
-          stype: text(40)
-        - name: Team_Plan_Start_Date
-          type: date
-          stype: date
         - name: Position_Provided
           type: int
           stype: int(0, 100)
         - name: Position_All
           type: int
-          stype: int(0, 1000)
+          stype: int(0, 100)
         - name: Position_Resources
           type: float
           stype: percent
@@ -252,18 +339,15 @@ tables:
         - name: Planned_Strim_Level
           type: varchar(5)
           stype: list('-', 'N/A', 'Да', 'Нет')
-        - name: Team_Type
-          type: varchar(6)
-          stype: list('Change', 'Run')
         - name: First_Sprint_Backlog_Metric
-          type: varchar(5)
-          stype: text(5)
+          type: int
+          stype: boolean
         - name: First_Sprint_Backlog_Value
-          type: varchar(5)
-          stype: text(5)
+          type: int
+          stype: int(0, 100)
         - name: Next_Sprints_Backlog_Metric
-          type: varchar(5)
-          stype: text(5)
+          type: int
+          stype: boolean
         - name: Next_Sprints_Backlog_Value
-          type: varchar(5)
-          stype: text(5)
+          type: int
+          stype: int(0, 100)

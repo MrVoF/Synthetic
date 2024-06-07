@@ -43,7 +43,7 @@ parameters:
           type: array
           stype: text(100)
         - name: fixPlanedTime
-          type: string
+          type: timestamp
           stype: datetime
         - name: isReclamation
           type: bool
